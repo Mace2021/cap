@@ -120,9 +120,13 @@ jobs:
         run: gh release create "$GITHUB_REF_NAME" out/* --title "C.A.P. ${GITHUB_REF_NAME#v}" --notes-file notes.md --verify-tag
 
   site:
+    # GitHub Pages only deploys from main, so start the site workflow there rather than from this tag.
     needs: release
-    uses: ./.github/workflows/pages.yml
+    runs-on: ubuntu-latest
     permissions:
-      contents: read
-      pages: write
-      id-token: write
+      actions: write
+    steps:
+      - name: Refresh the product site with the new downloads
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
