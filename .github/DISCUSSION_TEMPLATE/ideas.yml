@@ -1,0 +1,19 @@
+title: ""
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping shape C.A.P. Others can upvote ideas, which helps us decide what to build next.
+        **Posts are public: never include client names, email text or account details.**
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: What should C.A.P. do, and what would it save you?
+    validations:
+      required: true
+  - type: input
+    id: business
+    attributes:
+      label: Your kind of office
+      placeholder: Tax & bookkeeping, insurance agency, cleaning business…

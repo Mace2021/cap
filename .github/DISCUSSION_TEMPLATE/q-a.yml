@@ -1,0 +1,25 @@
+title: ""
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ask anything about installing or using C.A.P. Other users and the C.A.P. team can answer, and you can mark the
+        answer that helped. **Posts are public: never include client names, email text, SSNs or passwords.**
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What are you trying to do, and what happened?
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: Your computer
+      placeholder: Windows 11, macOS 15, Ubuntu 24.04…
+  - type: input
+    id: version
+    attributes:
+      label: C.A.P. version
+      description: Shown at the bottom of Settings.
+      placeholder: "2.2.0"

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question
+    url: https://github.com/Mace2021/cap/discussions/new?category=q-a
+    about: Help with installing or using C.A.P.
+  - name: Share an idea
+    url: https://github.com/Mace2021/cap/discussions/new?category=ideas
+    about: Suggest a feature or improvement.
+  - name: Report a security problem privately
+    url: https://github.com/Mace2021/cap/security/advisories/new
+    about: Please don't post security problems publicly.

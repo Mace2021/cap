@@ -1,0 +1,38 @@
+name: Report a problem
+description: Something in C.A.P. doesn't work the way it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting it. **This report is public: never include client names, email text, SSNs, passwords
+        or API keys.** For a security problem, use [private reporting](https://github.com/Mace2021/cap/security/advisories/new) instead.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead. Copy any error message.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to make it happen again
+      placeholder: |
+        1. Open Inbox
+        2. Click …
+  - type: input
+    id: system
+    attributes:
+      label: Your computer
+      placeholder: Windows 11, macOS 15, Ubuntu 24.04…
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: C.A.P. version
+      description: Shown at the bottom of Settings.
+      placeholder: "2.2.0"
+    validations:
+      required: true

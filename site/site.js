@@ -23,8 +23,8 @@ function detectOS() {
 const myOS = detectOS();
 
 /* ---------- tabs ---------- */
-const TABS = ["home", "about", "download", "setup", "privacy"];
-const TITLES = { home: "C.A.P. Inbox Assistant", about: "About · C.A.P.", download: "Download · C.A.P.", setup: "Setup · C.A.P.", privacy: "Privacy & security · C.A.P." };
+const TABS = ["home", "about", "download", "setup", "privacy", "feedback"];
+const TITLES = { home: "C.A.P. Inbox Assistant", about: "About · C.A.P.", download: "Download · C.A.P.", setup: "Setup · C.A.P.", privacy: "Privacy & security · C.A.P.", feedback: "Help & feedback · C.A.P." };
 
 function route() {
   const hash = location.hash.slice(1);
@@ -34,6 +34,7 @@ function route() {
     if (a.dataset.tab === tab) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
   });
   document.title = TITLES[tab];
+  $("#fb-fab").hidden = tab === "feedback";
   if (hash && !TABS.includes(hash) && document.getElementById(hash)) {
     document.getElementById(hash).scrollIntoView();  // e.g. #tour on the home tab
   } else {
@@ -196,9 +197,49 @@ document.addEventListener("click", async e => {
   if (setup) setTimeout(() => $(`button[data-setup="${setup.dataset.gotoSetup}"]`)?.click(), 0);
 });
 
+/* ---------- help & feedback ---------- */
+// Each kind opens a GitHub form with the visitor's words filled in; the field names match .github's form ids.
+const FEEDBACK = {
+  question: { label: "Your question", path: "discussions/new", params: { category: "q-a" }, field: "question" },
+  idea:     { label: "Your idea", path: "discussions/new", params: { category: "ideas" }, field: "idea" },
+  bug:      { label: "What happened?", path: "issues/new", params: { template: "bug_report.yml" }, field: "what-happened" },
+  chat:     { label: "Your message", path: "discussions/new", params: { category: "general" }, field: "message" },
+};
+// Things that shouldn't be in a public post: email addresses, phone numbers, SSN-like and long account numbers.
+const PRIVATE_RX = /[\w.+-]+@[\w-]+\.[\w.]+|\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b|\b\d{3}-\d{2}-\d{4}\b|\b\d{9,17}\b/;
+
+function initFeedback() {
+  const form = $("#fb-form"), kind = () => $('input[name="kind"]:checked', form).value;
+  $("#fb-system").value = OS_NAMES[myOS] || "";
+  const sync = () => {
+    $("#fb-message-label").textContent = FEEDBACK[kind()].label;
+    $("#fb-warn").hidden = !PRIVATE_RX.test(`${$("#fb-title").value} ${$("#fb-message").value}`);
+  };
+  form.addEventListener("change", sync);
+  form.addEventListener("input", sync);
+  sync();
+  $$("[data-gh]").forEach(a => { if (REPO) { a.href = `https://github.com/${REPO}/${a.dataset.gh}`; a.rel = "noopener"; a.target = "_blank"; } });
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const message = $("#fb-message").value.trim();
+    if (!message) { $("#fb-status").textContent = "Please write your message first."; $("#fb-message").focus(); return; }
+    if (!REPO) { $("#fb-status").textContent = "Feedback opens once the site is published on GitHub."; return; }
+    const k = FEEDBACK[kind()];
+    const title = $("#fb-title").value.trim() || message.split("\n")[0].slice(0, 80);
+    const params = new URLSearchParams({ ...k.params, title, [k.field]: message });
+    if (k.field !== "message" && k.field !== "idea") {
+      if ($("#fb-system").value) params.set("system", $("#fb-system").value);
+      if ($("#fb-version").value.trim()) params.set("version", $("#fb-version").value.trim());
+    }
+    window.open(`https://github.com/${REPO}/${k.path}?${params}`, "_blank", "noopener");
+    $("#fb-status").textContent = "GitHub opened in a new tab. Sign in if asked, check your post, then click the green button there to post it.";
+  });
+}
+
 /* ---------- start ---------- */
 route();
 bindSwitch("setup");
 bindSwitch("verify");
 initTour();
 initDownloads();
+initFeedback();

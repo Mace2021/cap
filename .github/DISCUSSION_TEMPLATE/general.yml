@@ -1,0 +1,13 @@
+title: ""
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Chat with other C.A.P. users: share how you use it, tips, or general feedback.
+        **Posts are public: never include client names, email text or account details.**
+  - type: textarea
+    id: message
+    attributes:
+      label: Message
+    validations:
+      required: true

@@ -186,3 +186,29 @@ pre code { background: none; padding: 0; overflow-wrap: normal; }
 .foot-row { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; }
 .foot nav { display: flex; flex-wrap: wrap; gap: 16px; }
 .foot a { color: var(--muted); }
+
+/* Help & feedback */
+.fb-form { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 6px; }
+.fb-kinds { border: 0; padding: 0; margin: 0 0 10px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.fb-kinds legend { font-weight: 700; margin-bottom: 10px; padding: 0; }
+.fb-kind { position: relative; display: flex; gap: 10px; align-items: flex-start; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px; cursor: pointer; }
+.fb-kind:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.fb-kind input { margin-top: 4px; accent-color: var(--accent); }
+.fb-kind small { display: block; color: var(--muted); }
+.field { font-weight: 700; font-size: .92rem; margin-top: 8px; }
+.fb-form input:not([type="radio"]), .fb-form textarea, .fb-form select {
+  width: 100%; font: 1rem var(--font); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 10px 12px; min-height: 44px; }
+.fb-form textarea { resize: vertical; }
+.fb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fb-row > div { display: grid; gap: 6px; }
+.fb-warn { background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: var(--radius-sm); padding: 8px 12px; margin: 4px 0 0; font-size: .92rem; }
+.fb-note { margin-top: 12px; }
+.fb-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; }
+.fb-actions .fine { flex: 1; min-width: 220px; margin: 0; }
+.link-card { text-decoration: none; color: var(--ink); }
+.link-card:hover { border-color: var(--accent); }
+.fb-fab { position: fixed; right: 18px; bottom: 18px; z-index: 6; background: var(--accent); color: var(--accent-ink); font-weight: 700; text-decoration: none;
+          padding: 11px 18px; border-radius: 999px; box-shadow: var(--shadow); }
+.fb-fab:hover { filter: brightness(1.07); }
+@media (max-width: 560px) { .fb-kinds, .fb-row { grid-template-columns: 1fr; } .fb-fab { right: 12px; bottom: 12px; } }
+@media print { .fb-fab { display: none; } }

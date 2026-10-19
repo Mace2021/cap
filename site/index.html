@@ -23,6 +23,7 @@
       <a href="#download" data-tab="download">Download</a>
       <a href="#setup" data-tab="setup">Setup</a>
       <a href="#privacy" data-tab="privacy">Privacy &amp; security</a>
+      <a href="#feedback" data-tab="feedback">Help &amp; feedback</a>
     </nav>
   </div>
 </header>
@@ -323,6 +324,7 @@ Categories=Office;Email;</code></pre></li>
 
     <h2>This website</h2>
     <p>This site uses no cookies, analytics or tracking, and loads no outside fonts or scripts. It's hosted on GitHub Pages, and the Download page asks GitHub for the latest release details, so GitHub sees your visit as described in <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener noreferrer">GitHub's privacy statement</a>.</p>
+    <p>The Help &amp; feedback form doesn't send anything itself. It opens GitHub with your words filled in, and nothing is posted until you post it there under your GitHub account. Posts in the C.A.P. community are public.</p>
 
     <h2>Honest limits</h2>
     <p>C.A.P. helps you follow good practice, but it isn't certified for any regulation and doesn't make you compliant by itself. Your obligations under the FTC Safeguards Rule, IRS Publication 4557 or state insurance rules stay with your office.</p>
@@ -332,12 +334,63 @@ Categories=Office;Email;</code></pre></li>
   </div>
 </section>
 
+<!-- ============================== HELP & FEEDBACK ============================== -->
+<section id="tab-feedback" class="tab" aria-labelledby="feedback-title" hidden>
+  <div class="wrap narrow">
+    <h1 id="feedback-title">Help &amp; feedback</h1>
+    <p class="lede">Have a question, an idea, or something that isn't working? Tell us here. Questions and ideas go to the C.A.P. community on GitHub, where other users and the C.A.P. team answer and vote.</p>
+
+    <form class="fb-form" id="fb-form" novalidate>
+      <fieldset class="fb-kinds">
+        <legend>What would you like to do?</legend>
+        <label class="fb-kind"><input type="radio" name="kind" value="question" checked><span><strong>Ask a question</strong><small>Help installing or using C.A.P.</small></span></label>
+        <label class="fb-kind"><input type="radio" name="kind" value="idea"><span><strong>Share an idea</strong><small>A feature or improvement</small></span></label>
+        <label class="fb-kind"><input type="radio" name="kind" value="bug"><span><strong>Report a problem</strong><small>Something doesn't work</small></span></label>
+        <label class="fb-kind"><input type="radio" name="kind" value="chat"><span><strong>Chat or feedback</strong><small>Tips, praise, anything else</small></span></label>
+      </fieldset>
+
+      <label class="field" for="fb-title">Short summary</label>
+      <input id="fb-title" maxlength="120" placeholder="e.g. Can C.A.P. read Outlook email?" autocomplete="off">
+
+      <label class="field" for="fb-message" id="fb-message-label">Your question</label>
+      <textarea id="fb-message" rows="6" maxlength="4000" required></textarea>
+      <p class="fb-warn" id="fb-warn" hidden>This looks like it contains an email address, phone number or ID number. Posts are public, so please remove client details before continuing.</p>
+
+      <div class="fb-row">
+        <div><label class="field" for="fb-system">Your computer</label>
+          <select id="fb-system"><option value="Windows">Windows</option><option value="macOS">macOS</option><option value="Linux">Linux</option><option value="">Not sure / not installed yet</option></select></div>
+        <div><label class="field" for="fb-version">C.A.P. version</label>
+          <input id="fb-version" placeholder="2.2.0" autocomplete="off"></div>
+      </div>
+
+      <div class="notice fb-note"><p><strong>Before you post:</strong> your post is public on GitHub and needs a free GitHub account. Never include client names, email text, Social Security or account numbers, or passwords. Found a security problem? <a data-security-link href="#privacy">Report it privately</a>.</p></div>
+
+      <div class="fb-actions">
+        <button class="btn primary" type="submit" id="fb-go">Continue on GitHub</button>
+        <span class="fine" id="fb-status" aria-live="polite">Opens GitHub in a new tab with your words filled in. Nothing is sent until you post it there.</span>
+      </div>
+    </form>
+
+    <h2>Community</h2>
+    <div class="cards two">
+      <a class="card link-card" data-gh="discussions/categories/q-a" href="#feedback"><h3>Questions &amp; answers</h3><p>Search what others have asked before posting.</p></a>
+      <a class="card link-card" data-gh="discussions/categories/ideas" href="#feedback"><h3>Ideas board</h3><p>Upvote the ideas you want most.</p></a>
+      <a class="card link-card" data-gh="discussions/categories/general" href="#feedback"><h3>Chat with other users</h3><p>Tips and stories from offices using C.A.P.</p></a>
+      <a class="card link-card" data-gh="issues" href="#feedback"><h3>Known problems</h3><p>Problems already reported, and their fixes.</p></a>
+    </div>
+
+    <h2>Quick help</h2>
+    <p>Many setup questions are answered in the <a href="#setup">setup guide</a>, including what to do when the app doesn't open, Ollama isn't running or email won't connect.</p>
+  </div>
+</section>
+
 </main>
+<a class="fb-fab" href="#feedback" id="fb-fab">Feedback</a>
 
 <footer class="foot">
   <div class="wrap foot-row">
     <span>C.A.P. Inbox Assistant · <span data-version>2.2.0</span></span>
-    <nav aria-label="Footer"><a href="#download">Download</a><a href="#setup">Setup</a><a href="#privacy">Privacy &amp; security</a><a data-releases-link href="#download">Releases</a></nav>
+    <nav aria-label="Footer"><a href="#download">Download</a><a href="#setup">Setup</a><a href="#privacy">Privacy &amp; security</a><a href="#feedback">Help &amp; feedback</a><a data-releases-link href="#download">Releases</a></nav>
   </div>
 </footer>
 <script src="site.js"></script>
