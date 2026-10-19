@@ -55,7 +55,8 @@ jobs:
       - name: Microsoft sign-in ID
         if: env.MS_CLIENT_ID != ''
         shell: bash
-        run: printf '{"microsoft_client_id": "%s"}\n' "$MS_CLIENT_ID" > cap_config.json
+        run: |
+          printf '{"microsoft_client_id": "%s"}\n' "$MS_CLIENT_ID" > cap_config.json
 
       - name: Build
         run: python build.py
