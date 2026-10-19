@@ -1,3 +1,13 @@
+# C.A.P. 2.2.1 — 2026-10-19
+
+## Fixed
+- **Windows: "Failed to resolve Python.Runtime.Loader.Initialize" on first launch.** When the download was unzipped
+  with Windows' Extract All, Windows marked every file as coming from the internet and .NET refused to load the
+  window. C.A.P. now clears that mark from its own files when it starts, and explains how to unblock the ZIP if it
+  can't.
+- The release self-test now also loads the window libraries on each system, so this kind of problem is caught before
+  a release is published.
+
 # C.A.P. 2.2.0 — 2026-10-19
 
 ## Added

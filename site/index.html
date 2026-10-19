@@ -140,8 +140,9 @@
 
     <h2>Release notes</h2>
     <div class="notes">
-      <h3>Version <span data-version>2.2.0</span></h3>
+      <h3>Version <span data-version>2.2.1</span></h3>
       <ul>
+        <li>Fixes a Windows start-up error ("Failed to resolve Python.Runtime.Loader.Initialize") after unzipping the download with Extract All.</li>
         <li>Key dates never run out: federal deadlines are worked out every year, moved off weekends and holidays.</li>
         <li>Add your own dates for the whole firm, or on a client's timeline.</li>
         <li>Upload files button in Knowledge.</li>
@@ -267,6 +268,7 @@ Categories=Office;Email;</code></pre></li>
 
     <h2>If something goes wrong</h2>
     <dl class="faq">
+      <dt>Windows: "Failed to resolve Python.Runtime.Loader.Initialize"</dt><dd>Windows blocked the files because they came from the internet. Version 2.2.1 and later fix this by themselves. On an older version, delete the extracted <code>CAP</code> folder, right-click the downloaded ZIP, choose <strong>Properties</strong>, tick <strong>Unblock</strong>, click <strong>OK</strong>, and extract it again.</dd>
       <dt>Nothing happens when I open it</dt><dd>Give it a few seconds the first time. On Windows, make sure you extracted the ZIP first and opened CAP.exe from the extracted folder.</dd>
       <dt>"Ollama isn't running"</dt><dd>Open the Ollama app (or run <code>ollama serve</code>), then click <strong>Test and use this model</strong> again.</dd>
       <dt>Email won't connect</dt><dd>Most providers need an app password, not your normal password, and two-step verification turned on to create one. C.A.P.'s connect screen links to the right page.</dd>

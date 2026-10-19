@@ -13,6 +13,7 @@ import threading
 import time
 import urllib.error
 import urllib.request
+from pathlib import Path
 
 import uvicorn
 import webview
@@ -52,19 +53,63 @@ def wait_for_server(port, timeout=45):
     return False
 
 
+BLOCKED_HELP = (
+    "C.A.P. couldn't open its window because Windows marked its files as downloaded from the internet.\n\n"
+    "To fix it:\n"
+    "1. Delete the CAP folder you extracted.\n"
+    "2. Right-click the downloaded ZIP, choose Properties, tick Unblock, and click OK.\n"
+    "3. Extract the ZIP again into a folder you own, such as Documents, and open CAP.exe.\n\n"
+    "Details: {error}"
+)
+
+
+def clear_download_marks():
+    """Windows tags every file unzipped from a browser download as coming from the internet (a Zone.Identifier
+    stream), and .NET then refuses to load the assemblies that draw the window ("Failed to resolve
+    Python.Runtime.Loader.Initialize"). The files are C.A.P.'s own, so drop the tag from its bundled DLLs."""
+    if sys.platform != "win32" or not getattr(sys, "frozen", False):
+        return
+    root = Path(getattr(sys, "_MEIPASS", Path(sys.executable).parent))
+    for dll in root.rglob("*.dll"):
+        try:
+            os.remove("\\\\?\\" + str(dll) + ":Zone.Identifier")  # \\?\ allows paths past 260 characters
+        except OSError:
+            pass  # not tagged, or a folder the user can't write to
+
+
+def check_window_libraries():
+    """Loads the libraries that draw the window on this system, without opening one."""
+    if sys.platform == "win32":
+        from webview.platforms import winforms  # noqa: F401 - loads .NET through pythonnet
+    elif sys.platform == "darwin":
+        from webview.platforms import cocoa  # noqa: F401
+    else:
+        from webview.platforms import qt  # noqa: F401
+
+
 def self_test(port):
-    """`CAP --selftest`: proves a packaged build starts and serves its pages, without opening a window.
-    The release builds run this on Windows, macOS and Linux before anything is published."""
+    """`CAP --selftest`: proves a packaged build starts, serves its pages and can load its window libraries, without
+    opening a window. The release builds run this on Windows, macOS and Linux before anything is published."""
     for path in ("/status", "/", "/ui/app.js", "/ui/styles.css"):
         with urllib.request.urlopen(f"http://{HOST}:{port}{path}", timeout=10) as response:
             if response.status != 200:
                 raise SystemExit(f"Self-test failed: {path} returned {response.status}")
+    check_window_libraries()
     print("C.A.P. self-test passed")
+
+
+def show_error(text):
+    if sys.platform == "win32":
+        import ctypes
+        ctypes.windll.user32.MessageBoxW(None, text, "C.A.P. couldn't start", 0x10)
+    else:
+        print(text, file=sys.stderr)
 
 
 def main():
     global server_errors
     server_errors = []
+    clear_download_marks()
     port = find_free_port()
     server_thread = threading.Thread(target=run_server, args=(port,), daemon=True)
     server_thread.start()
@@ -97,4 +142,10 @@ if __name__ == "__main__":
             print(f"C.A.P. self-test failed: {exc}", file=sys.stderr)
             os._exit(1)
         os._exit(0)
-    main()
+    try:
+        main()
+    except RuntimeError as exc:
+        if "Python.Runtime" not in str(exc):
+            raise
+        show_error(BLOCKED_HELP.format(error=exc))
+        os._exit(1)
