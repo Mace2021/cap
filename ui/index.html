@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="cap-token" content="__CAP_TOKEN__">
+<title>C.A.P. — Inbox Assistant</title>
+<link rel="stylesheet" href="/ui/styles.css">
+<script>
+  try { const t = localStorage.getItem('cap-theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<div class="shell">
+  <nav class="rail" aria-label="Main">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <div><strong>C.A.P.</strong><small>Inbox assistant</small></div>
+    </div>
+    <a href="#today" data-route="today"><span>Today</span></a>
+    <a href="#inbox" data-route="inbox"><span>Inbox</span><b class="count" id="nav-inbox"></b></a>
+    <a href="#tasks" data-route="tasks"><span>Tasks</span><b class="count muted" id="nav-tasks"></b></a>
+    <a href="#tracker" data-route="tracker" id="nav-tracker-link" hidden><span id="nav-tracker-label">Tracker</span><b class="count muted" id="nav-tracker"></b></a>
+    <a href="#knowledge" data-route="knowledge"><span>Knowledge</span></a>
+    <a href="#security" data-route="security"><span>Security</span><b class="count urgent" id="nav-security"></b></a>
+    <a href="#settings" data-route="settings"><span>Settings</span><b class="dot" id="nav-settings-dot" hidden></b></a>
+    <div class="rail-foot">
+      <button class="check-btn" id="check-btn" type="button">Check for new mail</button>
+      <div class="job" id="job" aria-live="polite"></div>
+      <div class="conn" id="conn"></div>
+      <div class="row" style="gap:12px"><button class="link-btn" id="theme-btn" type="button">Dark mode</button><button class="link-btn" id="lock-btn" type="button" hidden>Lock now</button></div>
+    </div>
+  </nav>
+  <main id="view" tabindex="-1"></main>
+</div>
+
+<div class="lock-screen" id="lock-screen" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<dialog id="dialog"></dialog>
+<script src="/ui/app.js"></script>
+</body>
+</html>

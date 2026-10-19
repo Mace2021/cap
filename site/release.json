@@ -1,0 +1,12 @@
+{
+  "version": "2.2.0",
+  "tag": "v2.2.0",
+  "published": "2026-10-19T19:10:00Z",
+  "assets": [
+    {
+      "name": "CAP-2.2.0-windows-x64.zip",
+      "size": 394783607,
+      "sha256": "5019c406ad59e27a0fb65b57b8eecbd274ebfca50580deb80e584a84661b6ac1"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+# Publishes the product site in site/ to GitHub Pages. Runs when the site changes, after each release, or by hand.
+# It points the download buttons at this repository and saves the latest release's file sizes and checksums into
+# site/release.json, which the site uses if GitHub's API can't be reached from the visitor's browser.
+name: Product site
+
+on:
+  push:
+    branches: [main]
+    paths: ["site/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Point the site at this repository and its latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sed -i "s#content=\"OWNER/REPO\"#content=\"${GITHUB_REPOSITORY}\"#" site/index.html
+          if gh api "repos/${GITHUB_REPOSITORY}/releases/latest" > /tmp/release.json 2>/dev/null; then
+            gh release download --repo "$GITHUB_REPOSITORY" --pattern SHA256SUMS.txt --dir /tmp/sums 2>/dev/null || true
+            python3 - <<'EOF'
+          import json, pathlib
+          rel = json.load(open("/tmp/release.json"))
+          sums = {}
+          f = pathlib.Path("/tmp/sums/SHA256SUMS.txt")
+          if f.exists():
+              for line in f.read_text().splitlines():
+                  digest, _, name = line.partition("  ")
+                  sums[name.strip()] = digest.strip()
+          assets = [{"name": a["name"], "size": a["size"],
+                     "sha256": (a.get("digest") or "").removeprefix("sha256:") or sums.get(a["name"], "")}
+                    for a in rel["assets"] if a["name"] != "SHA256SUMS.txt"]
+          out = {"version": rel["tag_name"].lstrip("v"), "tag": rel["tag_name"], "published": rel["published_at"], "assets": assets}
+          pathlib.Path("site/release.json").write_text(json.dumps(out, indent=2) + "\n")
+          print(json.dumps(out, indent=2))
+          EOF
+          fi
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

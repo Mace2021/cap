@@ -1,0 +1,10 @@
+google-auth-oauthlib==1.2.1
+google-api-python-client==2.140.0
+litellm==1.95.0
+fastapi==0.115.0
+uvicorn==0.34.3
+pywebview==5.3.2
+python-multipart==0.0.20
+pypdf==6.4.1
+msal==1.31.1
+keyring==25.5.0

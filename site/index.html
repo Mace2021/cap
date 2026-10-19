@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C.A.P. Inbox Assistant</title>
+<meta name="description" content="C.A.P. sorts your business email and drafts replies from your own prices and policies, on your own computer. Free download for Windows, macOS and Linux.">
+<!-- The GitHub repository that hosts the releases, as owner/name. The download buttons read its latest release. -->
+<meta name="cap-repo" content="OWNER/REPO">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; connect-src 'self' https://api.github.com; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="#home" aria-label="C.A.P. home"><span class="mark" aria-hidden="true">C</span><span>C.A.P.<small>Inbox assistant</small></span></a>
+    <nav class="tabs" aria-label="Site">
+      <a href="#home" data-tab="home">Home</a>
+      <a href="#about" data-tab="about">About</a>
+      <a href="#download" data-tab="download">Download</a>
+      <a href="#setup" data-tab="setup">Setup</a>
+      <a href="#privacy" data-tab="privacy">Privacy &amp; security</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+<!-- ============================== HOME ============================== -->
+<section id="tab-home" class="tab" aria-labelledby="home-title">
+  <div class="wrap hero">
+    <div class="hero-copy">
+      <p class="eyebrow">For tax firms, insurance agencies and small offices</p>
+      <h1 id="home-title">Your inbox, answered. Privately, on your own computer.</h1>
+      <p class="lede">C.A.P. sorts your business email, flags fraud, and drafts replies that quote your real prices and policies. You read every draft and send it with one click. Nothing goes to a C.A.P. server, because there isn't one.</p>
+      <div class="cta">
+        <a class="btn primary" href="#download" data-os-label>Download for free</a>
+        <a class="btn" href="#tour">Take the tour</a>
+      </div>
+      <p class="fine" data-version-line>Windows · macOS · Linux</p>
+    </div>
+    <figure class="hero-shot">
+      <img src="assets/today.png" width="1440" height="900" alt="The C.A.P. Today screen: seven emails need a reply, urgent and likely-fraud emails are labeled, and a Key dates panel lists upcoming tax deadlines.">
+    </figure>
+  </div>
+
+  <div class="wrap points">
+    <article><h2>Drafts that use your facts</h2><p>Replies quote the prices, hours and policies you give it, and nothing else. Every number and promise in a draft is highlighted green when it's backed by your info, amber when you should check it.</p></article>
+    <article><h2>Stops fraud before you reply</h2><p>Lookalike senders, fake IRS notices and "new bank details" requests are flagged at the top of the email, and you're warned before sending a Social Security or account number.</p></article>
+    <article><h2>Tracks the work behind the email</h2><p>Tax firms see every client's missing documents and key dates. Insurance agencies see certificate requests and renewals. Reminder emails are written for you.</p></article>
+  </div>
+
+  <div class="wrap" id="tour">
+    <div class="section-head">
+      <h2>Take the tour</h2>
+      <p>A sample tax firm's day in C.A.P. Use the arrows, or your keyboard's ← and → keys.</p>
+    </div>
+    <div class="tour" tabindex="0" aria-roledescription="carousel" aria-label="Product tour">
+      <div class="tour-stage">
+        <img id="tour-img" src="assets/today.png" width="1440" height="900" alt="">
+        <div id="tour-marks" aria-hidden="true"></div>
+      </div>
+      <div class="tour-side">
+        <p class="tour-count" id="tour-count">Step 1 of 7</p>
+        <h3 id="tour-title"></h3>
+        <div id="tour-text" aria-live="polite"></div>
+        <div class="tour-nav">
+          <button class="btn" id="tour-prev" type="button">← Back</button>
+          <button class="btn primary" id="tour-next" type="button">Next →</button>
+        </div>
+        <div class="tour-dots" id="tour-dots" role="tablist" aria-label="Tour steps"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap built-for">
+    <div class="section-head"><h2>Built for the way your office works</h2></div>
+    <div class="cards three">
+      <article class="card"><h3>Tax &amp; bookkeeping</h3><p>Knows what's urgent (IRS notices, rejected e-files, deadlines this week), never promises a refund amount, tracks the documents each client still owes, and works out federal deadlines every year.</p></article>
+      <article class="card"><h3>Insurance agencies</h3><p>Spots certificate-of-insurance requests and their due dates, tracks renewals, and never confirms coverage before the carrier does.</p></article>
+      <article class="card"><h3>Any small business</h3><p>Cleaners, studios, contractors and consultants: add your prices, policies and saved replies and C.A.P. answers the routine mail for you to approve.</p></article>
+    </div>
+  </div>
+
+  <div class="wrap closing">
+    <h2>Try it with a sample inbox first</h2>
+    <p>C.A.P. comes with three sample businesses, so you can see drafts, fraud checks and client tracking before you connect your own email.</p>
+    <a class="btn primary" href="#download">Download C.A.P.</a>
+  </div>
+</section>
+
+<!-- ============================== ABOUT ============================== -->
+<section id="tab-about" class="tab" aria-labelledby="about-title" hidden>
+  <div class="wrap narrow">
+    <h1 id="about-title">About C.A.P.</h1>
+    <p class="lede">C.A.P. is a private AI inbox assistant for small businesses. It reads your email on your own computer, works out what needs you, and writes a reply in your voice using only facts you've given it. You stay in charge: it never sends, archives or deletes anything without your click.</p>
+
+    <h2>How it works</h2>
+    <ol class="flow">
+      <li><strong>Your mailbox</strong><span>C.A.P. connects straight to your email provider. Mail stays unread on the server.</span></li>
+      <li><strong>Sort</strong><span>A quick pass on each new email: needs a reply, FYI, urgent, likely fraud, holds sensitive numbers.</span></li>
+      <li><strong>Draft</strong><span>Urgent mail first. Drafts use your business profile, saved replies and files, and never invent prices or availability.</span></li>
+      <li><strong>Check</strong><span>Every price, date, link and promise is highlighted: green when your sources back it, amber when you should look.</span></li>
+      <li><strong>You send</strong><span>Edit if you like, then send. C.A.P. learns from your edits and offers to update your facts.</span></li>
+    </ol>
+
+    <h2>What's inside</h2>
+    <div class="cards two">
+      <article class="card"><h3>Today</h3><p>Who needs a reply, who hasn't answered you, tasks due, key dates and today's calendar, with the time you've saved.</p></article>
+      <article class="card"><h3>Inbox</h3><p>Needs reply, FYI, Snoozed and Sent. One-click drafts with tone buttons, saved replies, "remind me if no answer", snooze, and keyboard shortcuts.</p></article>
+      <article class="card"><h3>Clients or Policies</h3><p>Tax firms: each client's return, status, documents still owed, a timeline of dates, and a reminder email listing what's missing. Insurance: certificate requests and renewals with due dates.</p></article>
+      <article class="card"><h3>Key dates</h3><p>Federal tax deadlines worked out for every year and moved off weekends and holidays, plus your own state deadlines and client dates, once or every year.</p></article>
+      <article class="card"><h3>Knowledge</h3><p>Business profile, saved replies, and files (PDF, Word, Excel, PowerPoint, text up to 25 MB). Ask questions and get answers with their sources.</p></article>
+      <article class="card"><h3>Security</h3><p>A protection score, app lock with a PIN, fraud and sensitive-number checks, automatic clean-up of old email text, and an audit log you can download.</p></article>
+      <article class="card"><h3>Industry starter kits</h3><p>Pick tax &amp; bookkeeping or insurance to add 14 ready-made saved replies, "never promise" safety rules and a document checklist. Nothing you've written is changed.</p></article>
+      <article class="card"><h3>Your choice of AI</h3><p>Run a free model on your own computer with Ollama, so email never leaves it, or use OpenAI, Anthropic, Google Gemini, Groq or OpenRouter with your own API key.</p></article>
+    </div>
+
+    <h2>What C.A.P. won't do</h2>
+    <ul class="ticks no">
+      <li>Send, archive or delete email on its own. There is no auto-send.</li>
+      <li>Invent prices, policies, dates or availability that aren't in your information.</li>
+      <li>Send your data to us. There is no C.A.P. account, server, analytics or telemetry.</li>
+    </ul>
+
+    <h2>Works with</h2>
+    <table class="grid-table">
+      <thead><tr><th scope="col">Email</th><th scope="col">How it connects</th></tr></thead>
+      <tbody>
+        <tr><td>Gmail and Google Workspace, Yahoo, iCloud, AOL, Zoho, Fastmail</td><td>Secure IMAP and SMTP with an app password (about 2 minutes to create)</td></tr>
+        <tr><td>Your own domain (you@yourbusiness.com)</td><td>IMAP and SMTP with your email password or app password</td></tr>
+        <tr><td>Outlook.com, Hotmail, Microsoft 365</td><td>Sign in with Microsoft. <em>Coming in a later release.</em></td></tr>
+        <tr><td>Google Calendar (optional)</td><td>Google sign-in, so drafts avoid times you're already booked</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Release notes</h2>
+    <div class="notes">
+      <h3>Version <span data-version>2.2.0</span></h3>
+      <ul>
+        <li>Key dates never run out: federal deadlines are worked out every year, moved off weekends and holidays.</li>
+        <li>Add your own dates for the whole firm, or on a client's timeline.</li>
+        <li>Upload files button in Knowledge.</li>
+        <li>Starter kits added while a sample inbox is loaded now stay after the sample is removed.</li>
+        <li>Stronger protection for the app window, and no outside calls from the AI library at start-up.</li>
+        <li>Downloads for Windows, macOS (Apple silicon) and Linux.</li>
+      </ul>
+      <p><a data-releases-link href="#download">All releases</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== DOWNLOAD ============================== -->
+<section id="tab-download" class="tab" aria-labelledby="download-title" hidden>
+  <div class="wrap narrow">
+    <h1 id="download-title">Download C.A.P.</h1>
+    <p class="lede blurb">Free for Windows, macOS and Linux. C.A.P. runs on your own computer: your email, clients and business details stay there. Download, unzip and open it, then try the sample inbox before you connect your email. Setup takes about ten minutes.</p>
+
+    <div class="dl-main" id="dl-main"></div>
+    <div class="dl-list" id="dl-list" aria-live="polite"><p class="muted">Loading the latest release…</p></div>
+    <p class="fine" id="dl-source"></p>
+
+    <h2>Before you open it</h2>
+    <div class="notice">
+      <p><strong>Your computer will warn you the first time.</strong> This release isn't code-signed yet, so Windows shows "Windows protected your PC" and macOS says it can't check the app for malware. That's expected for an unsigned app. The <a href="#setup">setup guide</a> shows exactly what to click. Check the SHA-256 checksum below first, so you know the file is the one we published.</p>
+    </div>
+
+    <h2>Check the download</h2>
+    <p>Each file has a SHA-256 checksum. Run the command for your computer in the folder you downloaded to, and compare the result with the checksum next to the file above. They should match exactly.</p>
+    <div class="os-switch" role="tablist" aria-label="Checksum command">
+      <button role="tab" data-verify="windows" aria-selected="true">Windows</button><button role="tab" data-verify="mac" aria-selected="false">macOS</button><button role="tab" data-verify="linux" aria-selected="false">Linux</button>
+    </div>
+    <div class="verify" data-verify-panel="windows"><p>In PowerShell:</p><pre><code>Get-FileHash .\<span data-file="windows">CAP-windows-x64.zip</span> -Algorithm SHA256</code></pre></div>
+    <div class="verify" data-verify-panel="mac" hidden><p>In Terminal:</p><pre><code>shasum -a 256 ~/Downloads/<span data-file="mac">CAP-macos-arm64.zip</span></code></pre></div>
+    <div class="verify" data-verify-panel="linux" hidden><p>In a terminal:</p><pre><code>sha256sum ~/Downloads/<span data-file="linux">CAP-linux-x64.tar.gz</span></code></pre></div>
+
+    <h2>System requirements</h2>
+    <table class="grid-table">
+      <thead><tr><th scope="col"></th><th scope="col">Windows</th><th scope="col">macOS</th><th scope="col">Linux</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">System</th><td>Windows 10 or 11, 64-bit</td><td>macOS 14 Sonoma or later, Apple silicon (M1 or newer)</td><td>64-bit desktop Linux, such as Ubuntu 22.04 or newer</td></tr>
+        <tr><th scope="row">Memory</th><td colspan="3">8 GB minimum. 16 GB recommended to run the AI on your own computer.</td></tr>
+        <tr><th scope="row">Disk space</th><td colspan="3">About 1.5 GB for C.A.P., plus 3 to 15 GB for a local AI model (not needed if you use a cloud AI key).</td></tr>
+        <tr><th scope="row">Internet</th><td colspan="3">Needed to read and send email, and for cloud AI if you choose it.</td></tr>
+      </tbody>
+    </table>
+    <p class="fine">Macs with Intel processors aren't supported in this release.</p>
+  </div>
+</section>
+
+<!-- ============================== SETUP ============================== -->
+<section id="tab-setup" class="tab" aria-labelledby="setup-title" hidden>
+  <div class="wrap narrow">
+    <h1 id="setup-title">Set up C.A.P.</h1>
+    <p class="lede">About ten minutes from download to your first draft. Pick your computer:</p>
+    <div class="os-switch big" role="tablist" aria-label="Your computer">
+      <button role="tab" data-setup="windows" aria-selected="true">Windows</button><button role="tab" data-setup="mac" aria-selected="false">macOS</button><button role="tab" data-setup="linux" aria-selected="false">Linux</button>
+    </div>
+
+    <ol class="steps" data-setup-panel="windows">
+      <li><h3>Download</h3><p>Go to <a href="#download">Download</a> and save <code data-file="windows">CAP-windows-x64.zip</code>. Optional: check its checksum as shown there.</p></li>
+      <li><h3>Unzip it</h3><p>Open your Downloads folder, right-click the ZIP and choose <strong>Extract All…</strong>. Pick a lasting place, for example <code>Documents\CAP</code>, and click <strong>Extract</strong>. Don't run C.A.P. from inside the ZIP, and keep the <code>CAP</code> folder together: the app needs the <code>_internal</code> folder beside it.</p></li>
+      <li><h3>Open C.A.P.</h3><p>In the <code>CAP</code> folder, double-click <strong>CAP.exe</strong>.</p></li>
+      <li><h3>Get past the SmartScreen warning</h3><p>If you see "Windows protected your PC", click <strong>More info</strong>, then <strong>Run anyway</strong>. You only do this once.</p></li>
+      <li><h3>Keep it handy</h3><p>Right-click <strong>CAP.exe</strong> and choose <strong>Pin to Start</strong>, or <strong>Show more options → Send to → Desktop (create shortcut)</strong>.</p></li>
+    </ol>
+
+    <ol class="steps" data-setup-panel="mac" hidden>
+      <li><h3>Download</h3><p>Go to <a href="#download">Download</a> and save <code data-file="mac">CAP-macos-arm64.zip</code>. Safari usually unzips it for you; if not, double-click the ZIP in Downloads.</p></li>
+      <li><h3>Move it to Applications</h3><p>Drag <strong>CAP</strong> (CAP.app) from Downloads into your <strong>Applications</strong> folder.</p></li>
+      <li><h3>Open it the first time</h3><p>Double-click CAP in Applications. macOS says it can't check the app for malware; click <strong>Done</strong> (or <strong>OK</strong>). Then open <strong>System Settings → Privacy &amp; Security</strong>, scroll down to the message about CAP, and click <strong>Open Anyway</strong>. Enter your Mac password if asked, then click <strong>Open</strong>.</p></li>
+      <li><h3>From now on</h3><p>CAP opens like any other app. Drag it to your Dock to keep it there.</p></li>
+    </ol>
+
+    <ol class="steps" data-setup-panel="linux" hidden>
+      <li><h3>Download</h3><p>Go to <a href="#download">Download</a> and save <code data-file="linux">CAP-linux-x64.tar.gz</code>.</p></li>
+      <li><h3>Unpack it</h3><pre><code>mkdir -p ~/Applications
+tar -xzf ~/Downloads/<span data-file="linux">CAP-linux-x64.tar.gz</span> -C ~/Applications</code></pre></li>
+      <li><h3>Open C.A.P.</h3><pre><code>~/Applications/CAP/CAP</code></pre><p>If the window doesn't open, your system may be missing a few common display libraries. On Ubuntu or Debian:</p><pre><code>sudo apt install libxcb-cursor0 libxkbcommon-x11-0 libnss3 libegl1</code></pre></li>
+      <li><h3>Optional: add it to your app menu</h3><p>Create <code>~/.local/share/applications/cap.desktop</code> containing:</p><pre><code>[Desktop Entry]
+Type=Application
+Name=C.A.P.
+Exec=/home/YOUR-USER-NAME/Applications/CAP/CAP
+Terminal=false
+Categories=Office;Email;</code></pre></li>
+    </ol>
+
+    <h2>Then, in C.A.P.</h2>
+    <p>The first time it opens, C.A.P. walks you through three steps. Here's what each one needs.</p>
+    <ol class="steps cont">
+      <li><h3>Try the sample inbox (optional)</h3><p>Choose a sample business (home cleaning, tax firm or insurance agency) and click <strong>Load sample inbox</strong> to see drafts, fraud flags and client tracking. Remove it any time in <strong>Settings</strong>; your own setup is kept.</p></li>
+      <li><h3>Choose the AI that writes drafts</h3>
+        <p><strong>Private and free, on your computer:</strong> install <a href="https://ollama.com/download" rel="noopener noreferrer">Ollama</a>, then download one model. Open a terminal (PowerShell on Windows) and run one of these:</p>
+        <table class="grid-table">
+          <thead><tr><th scope="col">Your computer has</th><th scope="col">Run this</th></tr></thead>
+          <tbody>
+            <tr><td>8 GB of memory</td><td><code>ollama pull qwen3.5:4b</code></td></tr>
+            <tr><td>12 GB or more</td><td><code>ollama pull qwen3.5:9b</code></td></tr>
+            <tr><td>16 GB or more, for the most natural writing</td><td><code>ollama pull gemma3:12b</code></td></tr>
+          </tbody>
+        </table>
+        <p>C.A.P. finds Ollama by itself. Pick the model and click <strong>Use this model</strong>.</p>
+        <p><strong>Faster on older computers:</strong> choose <strong>Cloud</strong> and paste an API key from OpenAI, Anthropic, Google Gemini, Groq or OpenRouter. The text needed for each draft then goes to that company. See <a href="#privacy">Privacy &amp; security</a>.</p></li>
+      <li><h3>Connect your email</h3>
+        <p>Type your email address. C.A.P. picks the right way to connect and links to the page you need. For Gmail, Yahoo, iCloud, AOL, Zoho and Fastmail, create an <strong>app password</strong> (your provider's security settings; two-step verification must be on) and paste it in. For your own domain, use your email password or app password; the server names are filled in for you and can be changed.</p>
+        <p class="fine">Outlook.com and Microsoft 365 sign-in is coming in a later release.</p></li>
+      <li><h3>Tell it about your business</h3><p>Add your name, business name, services and prices. Then open <strong>Knowledge</strong> to add hours, policies, links and common questions, and upload price lists or policy documents with <strong>Upload files</strong>. Drafts use only what's here.</p></li>
+      <li><h3>Pick your industry</h3><p>In <strong>Settings → Your industry</strong>, choose Tax &amp; bookkeeping or Insurance agency and click <strong>Add starter kit</strong> for 14 saved replies, safety rules and a checklist.</p></li>
+      <li><h3>Lock it down</h3><p>Open <strong>Security</strong> and turn on <strong>App lock</strong> (save your recovery code somewhere safe), choose how long to keep old email text, and turn on disk encryption for your computer (BitLocker, FileVault or LUKS).</p></li>
+    </ol>
+
+    <h2>Updating</h2>
+    <p>Download the new version and replace the old <code>CAP</code> folder (or CAP.app). Your email history, settings and clients are stored separately, so they carry over.</p>
+
+    <h2>Removing C.A.P.</h2>
+    <p>Delete the <code>CAP</code> folder or CAP.app. To remove your data too, delete C.A.P.'s data folder:</p>
+    <ul>
+      <li>Windows: <code>%LOCALAPPDATA%\CAP</code> (paste it into File Explorer's address bar)</li>
+      <li>macOS: <code>~/Library/Application Support/CAP</code></li>
+      <li>Linux: <code>~/.local/share/CAP</code></li>
+    </ul>
+    <p>Saved email and AI passwords are in your system's password store (Windows Credential Manager, macOS Keychain or your Linux keyring) under entries named for C.A.P.; delete them there.</p>
+
+    <h2>If something goes wrong</h2>
+    <dl class="faq">
+      <dt>Nothing happens when I open it</dt><dd>Give it a few seconds the first time. On Windows, make sure you extracted the ZIP first and opened CAP.exe from the extracted folder.</dd>
+      <dt>"Ollama isn't running"</dt><dd>Open the Ollama app (or run <code>ollama serve</code>), then click <strong>Test and use this model</strong> again.</dd>
+      <dt>Email won't connect</dt><dd>Most providers need an app password, not your normal password, and two-step verification turned on to create one. C.A.P.'s connect screen links to the right page.</dd>
+      <dt>Drafts are slow</dt><dd>Local AI depends on your computer. Try a smaller model, choose <strong>Settings → Inbox → Write drafts only when I open an email</strong>, or use a cloud AI key.</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================== PRIVACY ============================== -->
+<section id="tab-privacy" class="tab" aria-labelledby="privacy-title" hidden>
+  <div class="wrap narrow">
+    <h1 id="privacy-title">Privacy &amp; security</h1>
+    <p class="lede">C.A.P. was built for offices that handle tax returns, policies and Social Security numbers. Here is exactly what happens to your information.</p>
+
+    <h2>Where your information lives</h2>
+    <p>Everything C.A.P. knows (email text, drafts, clients, tasks, your business details and files) is kept in one database file on your computer, in C.A.P.'s data folder. There is no C.A.P. account and no C.A.P. server. We never receive your email, your clients' details or anything about how you use the app.</p>
+
+    <h2>What leaves your computer, and only when</h2>
+    <table class="grid-table">
+      <thead><tr><th scope="col">Goes to</th><th scope="col">What</th><th scope="col">When</th></tr></thead>
+      <tbody>
+        <tr><td>Your email provider</td><td>Reading, sending, archiving and deleting your mail, over encrypted connections</td><td>When C.A.P. checks for mail, and when you click Send, Done or Delete</td></tr>
+        <tr><td>Nobody (local AI)</td><td>With Ollama, drafting happens on your computer</td><td>Never leaves</td></tr>
+        <tr><td>The AI company you chose (cloud AI)</td><td>The text needed to sort and draft each email, under your own API key. You can mask SSNs and account numbers first.</td><td>Only if you choose a cloud AI</td></tr>
+        <tr><td>Google Calendar</td><td>Reading your events so drafts avoid busy times</td><td>Only if you connect it</td></tr>
+      </tbody>
+    </table>
+    <p>C.A.P. has no analytics, telemetry or crash reporting, and it turns off the reporting option in the AI library it uses.</p>
+
+    <h2>How C.A.P. protects it</h2>
+    <ul class="ticks">
+      <li><strong>Private to this computer.</strong> C.A.P. only accepts connections from your own computer. Every change needs a secret code that is new each time C.A.P. starts, and other websites can't load or embed it.</li>
+      <li><strong>App lock.</strong> A PIN when C.A.P. opens and after you've been away. The PIN is stored only as a salted hash, wrong guesses lock it for a while, and a recovery code gets you back in.</li>
+      <li><strong>Passwords in your system's vault.</strong> Email passwords and AI keys go to Windows Credential Manager, the macOS Keychain or your Linux keyring. If that isn't available, C.A.P. says so in Settings.</li>
+      <li><strong>Fraud and impersonation shield.</strong> Lookalike sender addresses, fake IRS messages, payment-change requests and phishing links are flagged before you reply.</li>
+      <li><strong>Sensitive-number guard.</strong> Emails holding SSNs, account, card or license numbers are marked, you're warned before sending one, and numbers can be masked once an email is handled.</li>
+      <li><strong>Clean-up.</strong> Choose to delete old email text automatically after 30 days to 2 years, in line with the FTC Safeguards Rule's disposal expectation.</li>
+      <li><strong>Audit log.</strong> Sends, deletions, exports and security changes are recorded on your computer, and you can download the log.</li>
+      <li><strong>You're in control.</strong> Nothing is sent, archived or deleted without your click. Export all your data as a file, or delete your email history, from Settings.</li>
+    </ul>
+
+    <h2>What you should do too</h2>
+    <ul>
+      <li>Turn on disk encryption: BitLocker or Device Encryption on Windows, FileVault on macOS, LUKS on Linux.</li>
+      <li>Turn on C.A.P.'s app lock if anyone else uses the computer.</li>
+      <li>Use the local AI if you'd rather no email text ever leave your computer.</li>
+    </ul>
+
+    <h2>Your download</h2>
+    <ul>
+      <li>Each release is built from its source code by GitHub's build service, which starts every app on its system and checks that it runs before publishing.</li>
+      <li>Every file has a SHA-256 checksum on the <a href="#download">Download</a> page, so you can check it hasn't been changed.</li>
+      <li>Releases aren't code-signed yet, which is why your computer warns you the first time. Signed releases are planned.</li>
+    </ul>
+
+    <h2>This website</h2>
+    <p>This site uses no cookies, analytics or tracking, and loads no outside fonts or scripts. It's hosted on GitHub Pages, and the Download page asks GitHub for the latest release details, so GitHub sees your visit as described in <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener noreferrer">GitHub's privacy statement</a>.</p>
+
+    <h2>Honest limits</h2>
+    <p>C.A.P. helps you follow good practice, but it isn't certified for any regulation and doesn't make you compliant by itself. Your obligations under the FTC Safeguards Rule, IRS Publication 4557 or state insurance rules stay with your office.</p>
+
+    <h2>Found a security problem?</h2>
+    <p>Please tell us privately through <a data-security-link href="#privacy">GitHub's private vulnerability reporting</a> rather than a public issue.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <span>C.A.P. Inbox Assistant · <span data-version>2.2.0</span></span>
+    <nav aria-label="Footer"><a href="#download">Download</a><a href="#setup">Setup</a><a href="#privacy">Privacy &amp; security</a><a data-releases-link href="#download">Releases</a></nav>
+  </div>
+</footer>
+<script src="site.js"></script>
+</body>
+</html>

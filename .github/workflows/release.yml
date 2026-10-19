@@ -1,0 +1,127 @@
+# Builds C.A.P. on Windows, macOS (Apple silicon) and Linux, starts each packaged app with --selftest, and on a
+# version tag (v2.2.0, ...) publishes a GitHub release with every download and a SHA256SUMS.txt, then redeploys the site.
+#
+#   git tag v2.2.0 && git push origin v2.2.0
+#
+# "Run workflow" on the Actions tab builds and self-tests everything without publishing.
+name: Build and release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-14, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      # Optional: your Azure app registration ID, saved as a repository secret, turns on Outlook / Microsoft 365 sign-in.
+      MS_CLIENT_ID: ${{ secrets.MS_CLIENT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: requirements*.txt
+
+      - name: System libraries for the Linux app window
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libgl1 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 \
+            libxcb-shape0 libxcb-xinerama0 libnss3 libxcomposite1 libxdamage1 libxrandr2 libxtst6 libasound2
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-build.txt
+          # Linux draws the window with Qt, which installs from pip; Windows uses Edge WebView2 and macOS uses WebKit.
+          if [ "$RUNNER_OS" = "Linux" ]; then pip install "pywebview[qt]==5.3.2"; fi
+
+      - name: Tests
+        run: python -m pytest -q tests
+
+      - name: Microsoft sign-in ID
+        if: env.MS_CLIENT_ID != ''
+        shell: bash
+        run: printf '{"microsoft_client_id": "%s"}\n' "$MS_CLIENT_ID" > cap_config.json
+
+      - name: Build
+        run: python build.py
+
+      - name: Self-test the packaged app
+        shell: bash
+        timeout-minutes: 5
+        env:
+          CAP_DATA_DIR: ${{ runner.temp }}/cap-selftest
+        run: |
+          case "$RUNNER_OS" in
+            Windows) pwsh -NoProfile -Command '$p = Start-Process dist/CAP/CAP.exe -ArgumentList "--selftest" -Wait -PassThru; exit $p.ExitCode' ;;
+            macOS)   dist/CAP.app/Contents/MacOS/CAP --selftest ;;
+            Linux)   QT_QPA_PLATFORM=offscreen dist/CAP/CAP --selftest ;;
+          esac
+          echo "Self-test passed on $RUNNER_OS"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cap-${{ runner.os }}
+          path: |
+            dist/CAP-*.zip
+            dist/CAP-*.tar.gz
+            dist/CAP-*.sha256
+          if-no-files-found: error
+          compression-level: 0
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+
+      - name: Checksums and release notes
+        run: |
+          cd out
+          cat *.sha256 > SHA256SUMS.txt && rm *.sha256
+          cat SHA256SUMS.txt
+          cd ..
+          version="${GITHUB_REF_NAME#v}"
+          awk -v head="# C.A.P. ${version} " 'index($0, head) == 1 {on = 1; next} /^# C\.A\.P\. / {on = 0} on' CHANGELOG.md > notes.md
+          {
+            echo
+            echo "## Download"
+            echo "Windows: the windows ZIP · Mac (Apple silicon): the macos ZIP · Linux: the linux tar.gz."
+            echo "Setup steps: the Setup tab on the product site. Check your download against SHA256SUMS.txt."
+            echo "These builds aren't code-signed yet, so Windows and macOS warn on first launch."
+          } >> notes.md
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" out/* --title "C.A.P. ${GITHUB_REF_NAME#v}" --notes-file notes.md --verify-tag
+
+  site:
+    needs: release
+    uses: ./.github/workflows/pages.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
