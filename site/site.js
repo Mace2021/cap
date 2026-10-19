@@ -34,7 +34,8 @@ function route() {
     if (a.dataset.tab === tab) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
   });
   document.title = TITLES[tab];
-  $("#fb-fab").hidden = tab === "feedback";
+  const fab = $("#fb-fab");  // may be missing for a few minutes after a deploy, while an older page is cached
+  if (fab) fab.hidden = tab === "feedback";
   if (hash && !TABS.includes(hash) && document.getElementById(hash)) {
     document.getElementById(hash).scrollIntoView();  // e.g. #tour on the home tab
   } else {
@@ -210,6 +211,7 @@ const PRIVATE_RX = /[\w.+-]+@[\w-]+\.[\w.]+|\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\
 
 function initFeedback() {
   const form = $("#fb-form"), kind = () => $('input[name="kind"]:checked', form).value;
+  if (!form) return;
   $("#fb-system").value = OS_NAMES[myOS] || "";
   const sync = () => {
     $("#fb-message-label").textContent = FEEDBACK[kind()].label;
