@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  MSIX manifest for the Microsoft Store. build.py fills the {{...}} values and packs dist/CAP with MakeAppx.
+  The identity must match Partner Center (your MSIX product > Product identity):
+    {{IDENTITY_NAME}}           Package/Identity/Name          (repository variable CAP_MSIX_NAME)
+    {{PUBLISHER}}               Package/Identity/Publisher     (repository variable CAP_MSIX_PUBLISHER)
+    {{PUBLISHER_DISPLAY_NAME}}  Package/Properties/PublisherDisplayName (repository variable CAP_MSIX_PUBLISHER_NAME)
+  The Store signs the package; the upload itself is unsigned.
+-->
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap uap3 desktop rescap">
+
+  <Identity Name="{{IDENTITY_NAME}}" Publisher="{{PUBLISHER}}" Version="{{VERSION}}" ProcessorArchitecture="x64" />
+
+  <Properties>
+    <DisplayName>C.A.P. Inbox Assistant</DisplayName>
+    <PublisherDisplayName>{{PUBLISHER_DISPLAY_NAME}}</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+    <Description>Private AI email assistant for small offices.</Description>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+
+  <Applications>
+    <Application Id="CAP" Executable="CAP\CAP.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+        DisplayName="C.A.P. Inbox Assistant"
+        Description="Sorts your inbox, flags fraud, and drafts replies from your own prices and policies."
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="C.A.P." />
+      </uap:VisualElements>
+      <Extensions>
+        <!-- Lets the release build run the self-test (cap-inbox.exe with the selftest flag) inside the installed package. -->
+        <uap3:Extension Category="windows.appExecutionAlias" Executable="CAP\CAP.exe" EntryPoint="Windows.FullTrustApplication">
+          <uap3:AppExecutionAlias>
+            <desktop:ExecutionAlias Alias="cap-inbox.exe" />
+          </uap3:AppExecutionAlias>
+        </uap3:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>

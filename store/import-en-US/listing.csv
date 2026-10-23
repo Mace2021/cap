@@ -1,0 +1,99 @@
+﻿Field,Type,English (United States)
+ProductName,Text,C.A.P. Inbox Assistant
+Description,Text,"C.A.P. reads your business email, works out what needs you, and drafts replies that quote your real prices, hours and policies. You read every draft and send it with one click. Nothing is ever sent without you.
+
+It runs on your own computer. There is no C.A.P. account and no C.A.P. server, and your client email isn't sent to us. Use a free AI model on your PC through Ollama so email never leaves it, or connect your own OpenAI, Anthropic, Google Gemini, Groq or OpenRouter key.
+
+BUILT FOR TAX & BOOKKEEPING FIRMS
+• Tracks which documents each client still owes and writes the reminder email for you
+• Federal tax deadlines worked out every year, plus your own state and client dates
+• Flags look-alike IRS emails and warns before you send a Social Security number
+
+BUILT FOR INSURANCE AGENCIES
+• Spots certificate-of-insurance requests and their due dates
+• Keeps policy renewals from slipping through the cracks
+• Never confirms coverage before the carrier does
+
+FOR ANY SMALL BUSINESS
+• Answers routine questions from the facts you give it, and never invents prices or availability
+• Every price, date and promise in a draft is highlighted: green when your information backs it, amber when you should check it
+• Catches fake ""new bank details"" and payment-change emails before you reply
+
+PRIVACY AND SECURITY
+• App lock with a PIN, and passwords kept in Windows Credential Manager
+• Automatic clean-up of old email text, and an audit log you can download
+• No analytics or telemetry in the app
+
+Try it first with a built-in sample inbox (home cleaning, tax firm or insurance agency) before connecting your own email. Works with Gmail and Google Workspace, Yahoo, iCloud, AOL, Zoho, Fastmail and your own business domain. Outlook and Microsoft 365 sign-in is coming in a later release.
+
+Setup guide, privacy details and feedback: https://mace2021.github.io/cap/"
+WhatsNew,Text,"• A Windows installer: Start menu entry, uninstall from Settings, no administrator password needed
+• Fixes a start-up error after unzipping the download with Extract All
+• Federal tax deadlines now worked out for every year, plus your own firm and client dates"
+ProductFeatures1,Text,"Drafts email replies in your voice from your own prices, hours and policies"
+ProductFeatures2,Text,You review every draft; nothing is sent without your click
+ProductFeatures3,Text,"Runs on your PC: free local AI with Ollama, or your own cloud AI key"
+ProductFeatures4,Text,"Fraud shield for look-alike senders, fake IRS emails and payment-change requests"
+ProductFeatures5,Text,"Warns before you send Social Security, account or card numbers"
+ProductFeatures6,Text,"Highlights every fact in a draft: green if backed by your info, amber to check"
+ProductFeatures7,Text,Tax firms: tracks documents each client owes and writes the reminder
+ProductFeatures8,Text,"Federal tax deadlines worked out every year, plus your own dates"
+ProductFeatures9,Text,Insurance agencies: tracks certificate requests and renewals
+ProductFeatures10,Text,Starter kits of saved replies for tax & bookkeeping and insurance offices
+ProductFeatures11,Text,"App lock with PIN, audit log and automatic clean-up of old email"
+ProductFeatures12,Text,Try it with a sample inbox before connecting your email
+ProductFeatures13,Text,
+ProductFeatures14,Text,
+ProductFeatures15,Text,
+ProductFeatures16,Text,
+ProductFeatures17,Text,
+ProductFeatures18,Text,
+ProductFeatures19,Text,
+ProductFeatures20,Text,
+ShortDescription,Text,"Private AI email assistant for small offices. Sorts your inbox, flags fraud, and drafts replies from your own prices and policies, on your own PC."
+SearchTerms1,Text,email assistant
+SearchTerms2,Text,AI email
+SearchTerms3,Text,tax practice
+SearchTerms4,Text,bookkeeping
+SearchTerms5,Text,insurance agency
+SearchTerms6,Text,inbox
+SearchTerms7,Text,small business
+Applicable license terms,Text,"Free to use. Provided as is, without warranty. The user is responsible for reviewing every email before sending it."
+Copyright,Text,© 2026 C.A.P. Inbox Assistant
+DevelopedBy,Text,C.A.P.
+RequirementsMinimum1,Text,64-bit Windows 10 (version 1809) or Windows 11
+RequirementsMinimum2,Text,8 GB of memory
+RequirementsMinimum3,Text,About 1.5 GB of free disk space
+RequirementsMinimum4,Text,Internet connection for email and for cloud AI
+RequirementsMinimum5,Text,
+RequirementsMinimum6,Text,
+RequirementsMinimum7,Text,
+RequirementsMinimum8,Text,
+RequirementsMinimum9,Text,
+RequirementsMinimum10,Text,
+RequirementsMinimum11,Text,
+RequirementsRecommended1,Text,16 GB of memory to run the AI on your own PC
+RequirementsRecommended2,Text,3 to 15 GB of extra disk space for an optional local AI model
+RequirementsRecommended3,Text,Keyboard and mouse
+RequirementsRecommended4,Text,
+RequirementsRecommended5,Text,
+RequirementsRecommended6,Text,
+RequirementsRecommended7,Text,
+RequirementsRecommended8,Text,
+RequirementsRecommended9,Text,
+RequirementsRecommended10,Text,
+RequirementsRecommended11,Text,
+StoreLogos1,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,store-logo-1080.png
+StoreLogos2,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,store-poster-1440x2160.png
+Screenshots1,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,screenshot-1-today.png
+Screenshots2,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,screenshot-2-inbox.png
+Screenshots3,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,screenshot-3-clients.png
+Screenshots4,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,screenshot-4-security.png
+Screenshots5,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,screenshot-5-starter-kit.png
+Screenshots6,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,
+Screenshots7,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,
+Screenshots8,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,
+Screenshots9,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,
+Screenshots10,Provide the file name only if it is in the same folder. Provide relative path to image starting with the subfolder name otherwise,
+HeroArts,Text,
+Trailers,Text,

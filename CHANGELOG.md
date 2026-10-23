@@ -1,3 +1,11 @@
+# C.A.P. 2.2.3 — 2026-10-23
+
+## Added
+- **Microsoft Store package** (`CAP-<version>-store-x64.msix`). The Store signs it, so no code-signing certificate
+  is needed for Store installs. Release builds install a test-signed copy, run the self-test inside it and remove
+  it before publishing.
+- C.A.P. has its own icon in the taskbar, Start menu and installer.
+
 # C.A.P. 2.2.2 — 2026-10-23
 
 ## Added

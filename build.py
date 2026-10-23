@@ -29,11 +29,13 @@ import importlib.util
 import os
 import platform
 import re
+import shutil
 import subprocess
 import sys
 import tarfile
 from pathlib import Path
 from urllib.request import urlopen
+from xml.sax.saxutils import escape
 from zipfile import ZIP_DEFLATED, ZipFile
 
 import PyInstaller.__main__
@@ -132,8 +134,51 @@ def create_windows_installer():
     return setup
 
 
+def _makeappx():
+    """MakeAppx from the Windows SDK (CAP_MAKEAPPX, else the newest SDK's x64 copy; GitHub's runners have it)."""
+    if os.environ.get("CAP_MAKEAPPX") and Path(os.environ["CAP_MAKEAPPX"]).is_file():
+        return Path(os.environ["CAP_MAKEAPPX"])
+    kits = Path(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)")) / "Windows Kits" / "10" / "bin"
+    found = sorted(kits.glob("10.*/x64/makeappx.exe"), key=lambda p: [int(n) for n in p.parent.parent.name.split(".")])
+    return found[-1] if found else None
+
+
+def create_msix():
+    """dist/CAP-<version>-store-x64.msix: the unsigned package for the Microsoft Store, which signs it.
+
+    Its identity comes from Partner Center through CAP_MSIX_NAME, CAP_MSIX_PUBLISHER and CAP_MSIX_PUBLISHER_NAME;
+    without them it gets placeholder values, good for testing but refused by the Store."""
+    if sys.platform != "win32":
+        return None
+    makeappx = _makeappx()
+    if not makeappx:
+        print("MakeAppx (Windows SDK) not found; skipped the MSIX package.")
+        return None
+    staging = BUILD_DIR / "msix"
+    if staging.exists():
+        shutil.rmtree(staging)
+    shutil.copytree(DIST_DIR / "CAP", staging / "CAP")
+    shutil.copytree(ROOT / "packaging" / "msix" / "Assets", staging / "Assets")
+    manifest = (ROOT / "packaging" / "msix" / "AppxManifest.xml").read_text(encoding="utf-8")
+    values = {
+        "IDENTITY_NAME": os.environ.get("CAP_MSIX_NAME") or "CAP.InboxAssistant",
+        "PUBLISHER": os.environ.get("CAP_MSIX_PUBLISHER") or "CN=CAP Test Publisher",
+        "PUBLISHER_DISPLAY_NAME": os.environ.get("CAP_MSIX_PUBLISHER_NAME") or "C.A.P.",
+        "VERSION": f"{VERSION}.0",  # MSIX versions have four parts; the Store requires the last to be 0
+    }
+    for key, value in values.items():
+        manifest = manifest.replace("{{" + key + "}}", escape(value, {'"': "&quot;"}))
+    (staging / "AppxManifest.xml").write_text(manifest, encoding="utf-8")
+    package = DIST_DIR / f"CAP-{VERSION}-store-x64.msix"
+    subprocess.run([str(makeappx), "pack", "/d", str(staging), "/p", str(package), "/o"], check=True)
+    digest = hashlib.sha256(package.read_bytes()).hexdigest()
+    (DIST_DIR / f"{package.name}.sha256").write_text(f"{digest}  {package.name}\n", encoding="utf-8")
+    return package
+
+
 if "--installer-only" in sys.argv:  # repackage an existing dist/CAP without running PyInstaller again
     print(f"Windows installer created: {create_windows_installer()}")
+    print(f"MSIX package created: {create_msix()}")
     sys.exit(0)
 
 
@@ -162,6 +207,7 @@ PyInstaller.__main__.run([
     "--windowed",       # no console window popping up on Windows/Mac
     "--noconfirm",      # overwrite dist/ without prompting each time
     *(["--osx-bundle-identifier=app.cap.inbox-assistant"] if sys.platform == "darwin" else []),
+    *([f"--icon={ROOT / 'packaging' / 'icon' / 'cap.ico'}"] if sys.platform == "win32" else []),
     f"--distpath={DIST_DIR}",
     f"--workpath={WORK_DIR}",
     f"--specpath={SPEC_DIR}",
@@ -211,3 +257,6 @@ print(f"Compressed download archive created: {create_download_archive()}")
 installer = create_windows_installer()
 if installer:
     print(f"Windows installer created: {installer}")
+msix = create_msix()
+if msix:
+    print(f"MSIX package created: {msix}")

@@ -51,6 +51,7 @@ OutputBaseFilename=CAP-{#AppVersion}-windows-x64-setup
 Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern
+SetupIconFile=..\packaging\icon\cap.ico
 UninstallDisplayName=C.A.P. Inbox Assistant
 UninstallDisplayIcon={app}\CAP.exe
 CloseApplications=yes

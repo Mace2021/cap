@@ -25,6 +25,10 @@ jobs:
     env:
       # Optional: your Azure app registration ID, saved as a repository secret, turns on Outlook / Microsoft 365 sign-in.
       MS_CLIENT_ID: ${{ secrets.MS_CLIENT_ID }}
+      # The MSIX package's identity from Partner Center (Product identity), saved as repository variables.
+      CAP_MSIX_NAME: ${{ vars.CAP_MSIX_NAME }}
+      CAP_MSIX_PUBLISHER: ${{ vars.CAP_MSIX_PUBLISHER }}
+      CAP_MSIX_PUBLISHER_NAME: ${{ vars.CAP_MSIX_PUBLISHER_NAME }}
     steps:
       - uses: actions/checkout@v4
 
@@ -102,11 +106,43 @@ jobs:
           if (Test-Path $app) { throw "Uninstall left the app behind" }
           "Installer passed: install, self-test, uninstall"
 
+      - name: Test the MSIX package (install a test-signed copy, self-test inside it, remove)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        timeout-minutes: 10
+        run: |
+          # The Store signs the real package; a copy signed with a throwaway certificate proves it installs and runs.
+          $msix = Get-ChildItem dist/CAP-*-store-x64.msix | Select-Object -First 1
+          if (-not $msix) { throw "No MSIX package was built" }
+          $publisher = if ($env:CAP_MSIX_PUBLISHER) { $env:CAP_MSIX_PUBLISHER } else { "CN=CAP Test Publisher" }
+          $name = if ($env:CAP_MSIX_NAME) { $env:CAP_MSIX_NAME } else { "CAP.InboxAssistant" }
+          $cert = New-SelfSignedCertificate -Type Custom -Subject $publisher -KeyUsage DigitalSignature `
+            -FriendlyName "CAP MSIX test" -CertStoreLocation Cert:\CurrentUser\My `
+            -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.3", "2.5.29.19={text}")
+          $test = Join-Path $env:RUNNER_TEMP "cap-test.msix"
+          Copy-Item $msix.FullName $test
+          $signtool = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits\10\bin\10.*\x64\signtool.exe" | Sort-Object FullName | Select-Object -Last 1
+          & $signtool.FullName sign /fd SHA256 /sha1 $cert.Thumbprint $test
+          if ($LASTEXITCODE -ne 0) { throw "Signing the test copy failed" }
+          $cer = Join-Path $env:RUNNER_TEMP "cap-test.cer"
+          Export-Certificate -Cert $cert -FilePath $cer | Out-Null
+          Import-Certificate -FilePath $cer -CertStoreLocation Cert:\LocalMachine\TrustedPeople | Out-Null
+          Add-AppxPackage -Path $test
+          $pkg = Get-AppxPackage -Name $name
+          if (-not $pkg) { throw "The MSIX package didn't install" }
+          "Installed $($pkg.PackageFullName)"
+          $alias = Join-Path $env:LOCALAPPDATA "Microsoft\WindowsApps\cap-inbox.exe"
+          $p = Start-Process $alias -ArgumentList "--selftest" -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "Self-test inside the MSIX package failed: $($p.ExitCode)" }
+          Remove-AppxPackage $pkg.PackageFullName
+          "MSIX passed: install, self-test inside the package, remove"
+
       - uses: actions/upload-artifact@v4
         with:
           name: cap-${{ runner.os }}
           path: |
             dist/CAP-*-setup.exe
+            dist/CAP-*-store-x64.msix
             dist/CAP-*.zip
             dist/CAP-*.tar.gz
             dist/CAP-*.sha256
@@ -141,6 +177,7 @@ jobs:
             echo "Windows: the windows-x64-setup.exe installer (or the portable windows ZIP) · Mac (Apple silicon): the macos ZIP · Linux: the linux tar.gz."
             echo "Setup steps: the Setup tab on the product site. Check your download against SHA256SUMS.txt."
             echo "These builds aren't code-signed yet, so Windows and macOS warn on first launch."
+            echo "The store-x64.msix file is the package for Microsoft Store submission; it can't be installed directly."
           } >> notes.md
 
       - name: Publish the release
