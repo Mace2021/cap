@@ -142,8 +142,9 @@
 
     <h2>Release notes</h2>
     <div class="notes">
-      <h3>Version <span data-version>2.2.1</span></h3>
+      <h3>Version <span data-version>2.2.2</span></h3>
       <ul>
+        <li>A Windows installer: Start menu entry, uninstall from Settings, no administrator password needed.</li>
         <li>Fixes a Windows start-up error ("Failed to resolve Python.Runtime.Loader.Initialize") after unzipping the download with Extract All.</li>
         <li>Key dates never run out: federal deadlines are worked out every year, moved off weekends and holidays.</li>
         <li>Add your own dates for the whole firm, or on a client's timeline.</li>
@@ -205,11 +206,11 @@
     </div>
 
     <ol class="steps" data-setup-panel="windows">
-      <li><h3>Download</h3><p>Go to <a href="#download">Download</a> and save <code data-file="windows">CAP-windows-x64.zip</code>. Optional: check its checksum as shown there.</p></li>
-      <li><h3>Unzip it</h3><p>Open your Downloads folder, right-click the ZIP and choose <strong>Extract All…</strong>. Pick a lasting place, for example <code>Documents\CAP</code>, and click <strong>Extract</strong>. Don't run C.A.P. from inside the ZIP, and keep the <code>CAP</code> folder together: the app needs the <code>_internal</code> folder beside it.</p></li>
-      <li><h3>Open C.A.P.</h3><p>In the <code>CAP</code> folder, double-click <strong>CAP.exe</strong>.</p></li>
-      <li><h3>Get past the SmartScreen warning</h3><p>If you see "Windows protected your PC", click <strong>More info</strong>, then <strong>Run anyway</strong>. You only do this once.</p></li>
-      <li><h3>Keep it handy</h3><p>Right-click <strong>CAP.exe</strong> and choose <strong>Pin to Start</strong>, or <strong>Show more options → Send to → Desktop (create shortcut)</strong>.</p></li>
+      <li><h3>Download</h3><p>Go to <a href="#download">Download</a> and save <code data-file="windows">CAP-windows-x64-setup.exe</code>. Optional: check its checksum as shown there.</p></li>
+      <li><h3>Run the installer</h3><p>Open your Downloads folder and double-click the file. If you see "Windows protected your PC", click <strong>More info</strong>, then <strong>Run anyway</strong>. It installs just for you, so no administrator password is needed.</p></li>
+      <li><h3>Follow the setup</h3><p>Click <strong>Next</strong> through the setup, tick <strong>Create a desktop shortcut</strong> if you'd like one, and click <strong>Install</strong>, then <strong>Finish</strong> to open C.A.P.</p></li>
+      <li><h3>Open it any time</h3><p>Find <strong>C.A.P. Inbox Assistant</strong> in the Start menu. Right-click it and choose <strong>Pin to Start</strong> or <strong>Pin to taskbar</strong> to keep it handy.</p></li>
+      <li><h3>Prefer no installer?</h3><p>Download the portable ZIP instead, right-click it, choose <strong>Extract All…</strong> into a folder you own, such as <code>Documents\CAP</code>, and open <strong>CAP.exe</strong> in the <code>CAP</code> folder. Keep that folder together: the app needs the <code>_internal</code> folder beside it.</p></li>
     </ol>
 
     <ol class="steps" data-setup-panel="mac" hidden>
@@ -257,10 +258,10 @@ Categories=Office;Email;</code></pre></li>
     </ol>
 
     <h2>Updating</h2>
-    <p>Download the new version and replace the old <code>CAP</code> folder (or CAP.app). Your email history, settings and clients are stored separately, so they carry over.</p>
+    <p>On Windows, run the new installer; it replaces the old version. With the portable ZIP, or on macOS and Linux, replace the old <code>CAP</code> folder (or CAP.app) with the new one. Your email history, settings and clients are stored separately, so they carry over.</p>
 
     <h2>Removing C.A.P.</h2>
-    <p>Delete the <code>CAP</code> folder or CAP.app. To remove your data too, delete C.A.P.'s data folder:</p>
+    <p>On Windows, open <strong>Settings → Apps → Installed apps</strong>, find <strong>C.A.P. Inbox Assistant</strong>, and choose <strong>Uninstall</strong>. With the portable ZIP, or on macOS and Linux, delete the <code>CAP</code> folder or CAP.app. To remove your data too, delete C.A.P.'s data folder:</p>
     <ul>
       <li>Windows: <code>%LOCALAPPDATA%\CAP</code> (paste it into File Explorer's address bar)</li>
       <li>macOS: <code>~/Library/Application Support/CAP</code></li>

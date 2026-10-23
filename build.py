@@ -95,6 +95,48 @@ def create_download_archive():
     return archive_path
 
 
+def _iscc():
+    """Inno Setup's compiler: CAP_ISCC, then the usual install folders (GitHub's Windows runners have it)."""
+    candidates = [os.environ.get("CAP_ISCC", ""),
+                  Path(os.environ.get("LOCALAPPDATA", "")) / "Programs" / "Inno Setup 6" / "ISCC.exe",
+                  Path(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)")) / "Inno Setup 6" / "ISCC.exe",
+                  Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "Inno Setup 6" / "ISCC.exe"]
+    return next((Path(c) for c in candidates if c and Path(c).is_file()), None)
+
+
+def _sign(path):
+    """Signs one file with CAP_SIGN_COMMAND (a command line with $f where the file goes), when it is set."""
+    command = os.environ.get("CAP_SIGN_COMMAND")
+    if command:
+        subprocess.run(command.replace("$f", f'"{path}"'), shell=True, check=True)
+
+
+def create_windows_installer():
+    """dist/CAP-<version>-windows-x64-setup.exe: a per-user installer with Start menu entry, uninstaller and silent mode."""
+    if sys.platform != "win32":
+        return None
+    iscc = _iscc()
+    if not iscc:
+        print("Inno Setup not found (install it or set CAP_ISCC); skipped the Windows installer.")
+        return None
+    app_dir = DIST_DIR / "CAP"
+    args =[str(iscc), "/Q", f"/DAppVersion={VERSION}", f"/DSourceDir={app_dir}", f"/DOutputDir={DIST_DIR}"]
+    if os.environ.get("CAP_PUBLISHER"):
+        args.append(f"/DPublisher={os.environ['CAP_PUBLISHER']}")
+    if os.environ.get("CAP_SIGN_COMMAND"):
+        args += [f"/Scapsign={os.environ['CAP_SIGN_COMMAND']}", "/DSignTool=capsign"]
+    subprocess.run([*args, str(ROOT / "installer" / "cap.iss")], check=True)
+    setup = DIST_DIR / f"CAP-{VERSION}-windows-x64-setup.exe"
+    digest = hashlib.sha256(setup.read_bytes()).hexdigest()
+    (DIST_DIR / f"{setup.name}.sha256").write_text(f"{digest}  {setup.name}\n", encoding="utf-8")
+    return setup
+
+
+if "--installer-only" in sys.argv:  # repackage an existing dist/CAP without running PyInstaller again
+    print(f"Windows installer created: {create_windows_installer()}")
+    sys.exit(0)
+
+
 def ensure_tokenizer_asset():
     if TOKENIZER_FILE.exists():
         content_hash = hashlib.sha256(TOKENIZER_FILE.read_bytes()).hexdigest()
@@ -163,4 +205,9 @@ PyInstaller.__main__.run([
     ] if importlib.util.find_spec("docling") else []),
 ])
 
+if sys.platform == "win32":
+    _sign(DIST_DIR / "CAP" / "CAP.exe")  # before packaging, so the ZIP and the installer both carry the signed app
 print(f"Compressed download archive created: {create_download_archive()}")
+installer = create_windows_installer()
+if installer:
+    print(f"Windows installer created: {installer}")

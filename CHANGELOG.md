@@ -1,3 +1,13 @@
+# C.A.P. 2.2.2 — 2026-10-23
+
+## Added
+- **Windows installer** (`CAP-<version>-windows-x64-setup.exe`): installs for the current user without an
+  administrator prompt, adds a Start menu entry and an uninstaller in Settings → Apps, and supports silent install
+  (`/VERYSILENT /SUPPRESSMSGBOXES /NORESTART`) for the Microsoft Store and IT tools. Uninstalling keeps the user's
+  data. The portable ZIP is still offered.
+- Release builds install, self-test and uninstall the Windows installer before publishing.
+- Code-signing hook: set `CAP_SIGN_COMMAND` and the build signs CAP.exe, the installer and its uninstaller.
+
 # C.A.P. 2.2.1 — 2026-10-19
 
 ## Fixed

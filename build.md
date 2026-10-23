@@ -50,6 +50,31 @@ will see client-facing security warnings:
   later.
 - Mac: Gatekeeper may require right-click > Open the first time.
 
+## Windows installer and code signing
+
+On Windows, `build.py` also makes `dist/CAP-<version>-windows-x64-setup.exe` with Inno Setup 6
+(`installer/cap.iss`). It installs per user into `%LOCALAPPDATA%\Programs\CAP` with a Start menu entry and an
+uninstaller. For the Microsoft Store's EXE submission, use:
+
+- Package URL: `https://github.com/Mace2021/cap/releases/download/v<version>/CAP-<version>-windows-x64-setup.exe`
+- Architecture: x64
+- Installer parameters: `/VERYSILENT /SUPPRESSMSGBOXES /NORESTART`
+
+`python build.py --installer-only` rebuilds just the installer from an existing `dist/CAP`.
+
+The Store requires the installer to be signed by a certificate from a Microsoft-trusted authority. Once you have
+one, set `CAP_SIGN_COMMAND` to a signing command with `$f` where the file goes, for example with a certificate
+installed on this computer:
+
+```
+set CAP_SIGN_COMMAND=signtool sign /fd sha256 /tr http://timestamp.digicert.com /td sha256 /n "Your Name" $f
+```
+
+The build then signs CAP.exe (before the ZIP and installer are made), the installer and its uninstaller. Set
+`CAP_PUBLISHER` (a repository variable for GitHub builds) to the name on the certificate so the installer's
+publisher matches it. Signing on GitHub's build servers needs the certificate's provider-specific setup
+(for example Azure Trusted Signing), added once you have chosen one.
+
 ## Credentials choice
 
 The build does not bundle `credentials.json` by default.

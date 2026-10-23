@@ -54,7 +54,7 @@ if getattr(sys, "frozen", False):
 
     tiktoken.registry.ENCODING_CONSTRUCTORS = dict(tiktoken_openai_public.ENCODING_CONSTRUCTORS)
 
-APP_VERSION = "2.2.1"
+APP_VERSION = "2.2.2"
 
 # ---------------------------------------------------------------------------
 # Paths & configuration

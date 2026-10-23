@@ -182,8 +182,15 @@ async function initDownloads() {
     list.innerHTML = `<p class="muted">Couldn't load the release list. ${REPO ? `See <a href="https://github.com/${esc(REPO)}/releases">all releases on GitHub</a>.` : ""}</p>`;
     return;
   }
-  const byOS = {};
-  rel.assets.filter(a => !/\.sha256$|SHA256SUMS/i.test(a.name)).forEach(a => { const os = osOf(a.name); if (os && !byOS[os]) byOS[os] = a; });
+  // One main download per system; on Windows that's the installer, with the portable ZIP offered beside it.
+  const byOS = {}, portable = {};
+  const files = rel.assets.filter(a => !/\.sha256$|SHA256SUMS/i.test(a.name));
+  files.forEach(a => { const os = osOf(a.name); if (os && /-setup\.exe$/i.test(a.name)) byOS[os] = a; });
+  files.forEach(a => {
+    const os = osOf(a.name);
+    if (!os || /-setup\.exe$/i.test(a.name)) return;
+    if (!byOS[os]) byOS[os] = a; else if (!portable[os]) portable[os] = a;
+  });
 
   $$("[data-version]").forEach(e => { e.textContent = rel.version; });
   $$("[data-file]").forEach(e => { const a = byOS[e.dataset.file]; if (a) e.textContent = a.name; });
@@ -212,6 +219,7 @@ async function initDownloads() {
         <p class="meta">${esc(a.name)} · ${mb(a.size)} · <a href="#setup" data-goto-setup="${os}">setup steps</a></p></div>
       ${link}
       ${a.sha256 ? `<div class="sum"><span class="fine">SHA-256</span><code>${esc(a.sha256)}</code><button class="btn small" type="button" data-copy="${esc(a.sha256)}">Copy</button></div>` : ""}
+      ${portable[os]?.url ? `<p class="meta alt">Prefer no installer? <a href="${esc(portable[os].url)}">Portable ZIP</a> (${esc(portable[os].name)}, ${mb(portable[os].size)})${portable[os].sha256 ? `, SHA-256 <code>${esc(portable[os].sha256)}</code>` : ""}</p>` : ""}
     </article>`;
   }).join("");
   const when = rel.published ? new Date(rel.published).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }) : "";

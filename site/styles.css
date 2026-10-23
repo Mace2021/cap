@@ -160,6 +160,8 @@ pre code { background: none; padding: 0; overflow-wrap: normal; }
 .dl-item.yours { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .dl-item h3 { margin: 0; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .dl-item .meta { color: var(--muted); font-size: .9rem; margin: 0; overflow-wrap: anywhere; }
+.dl-item .meta.alt { grid-column: 1 / -1; font-size: .85rem; }
+.dl-item .meta.alt code { font-size: .75rem; }
 .dl-item .sum { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; min-width: 0; }
 .dl-item .sum code { font-size: .78rem; flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .pill { font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
