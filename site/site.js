@@ -45,6 +45,37 @@ function route() {
 }
 window.addEventListener("hashchange", route);
 
+/* ---------- visit and download counts (GoatCounter, cookie-free) ---------- */
+// Sends one tiny anonymous count per page view or download click: the page, the linking site and the screen width.
+// Nothing is counted on a local preview or when the browser asks not to be tracked.
+const COUNTER = (() => {
+  const code = $('meta[name="goatcounter"]')?.content || "";
+  const off = !/^[a-z0-9-]+$/.test(code) || !/\.github\.io$/.test(location.hostname)
+    || navigator.doNotTrack === "1" || window.doNotTrack === "1" || navigator.globalPrivacyControl === true;
+  return off ? null : `https://${code}.goatcounter.com/count`;
+})();
+let lastCounted = "";
+
+function count(path, title, { event = false, referrer = "" } = {}) {
+  if (!COUNTER) return;
+  const params = new URLSearchParams({ p: path, t: title, s: `${screen.width},${screen.height},${devicePixelRatio || 1}`,
+                                       rnd: Math.random().toString(36).slice(2) });
+  if (event) params.set("e", "true");
+  if (referrer) params.set("r", referrer);
+  new Image().src = `${COUNTER}?${params}`;
+}
+
+function countPage() {
+  const tab = TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "home";
+  if (tab === lastCounted) return;  // #tour and similar in-page links stay on the same tab
+  const first = !lastCounted;
+  lastCounted = tab;
+  // Only the first view carries the outside site that sent the visitor; tab changes are within this site.
+  const ref = first && document.referrer && !document.referrer.startsWith(location.origin) ? document.referrer : "";
+  count(`/${tab}`, TITLES[tab], { referrer: ref });
+}
+window.addEventListener("hashchange", countPage);
+
 /* ---------- OS switches (setup steps, checksum commands) ---------- */
 function bindSwitch(attr) {
   const buttons = $$(`[data-${attr}]`).filter(b => b.tagName === "BUTTON");
@@ -188,6 +219,8 @@ async function initDownloads() {
 }
 
 document.addEventListener("click", async e => {
+  const dl = e.target.closest('a[href*="/releases/download/"]');
+  if (dl) count(`download-${osOf(dl.href) || "other"}`, `Download ${dl.href.split("/").pop()}`, { event: true });
   const copy = e.target.closest("[data-copy]");
   if (copy) {
     try { await navigator.clipboard.writeText(copy.dataset.copy); copy.textContent = "Copied"; }
@@ -245,3 +278,4 @@ bindSwitch("verify");
 initTour();
 initDownloads();
 initFeedback();
+countPage();
