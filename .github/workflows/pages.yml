@@ -52,6 +52,19 @@ jobs:
           EOF
           fi
 
+      - name: Direct download links for the Windows installers
+        # The Microsoft Store needs a package URL that serves the file itself; GitHub release links redirect to
+        # short-lived storage URLs. Copy the installers of the last three releases into the site, so each version's
+        # https://<site>/downloads/CAP-<version>-windows-x64-setup.exe stays valid while the Store may still use it.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p site/downloads
+          for tag in $(gh release list --repo "$GITHUB_REPOSITORY" --limit 3 --json tagName --jq '.[].tagName'); do
+            gh release download "$tag" --repo "$GITHUB_REPOSITORY" --pattern '*-setup.exe' --dir site/downloads --skip-existing || true
+          done
+          ls -l site/downloads
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
