@@ -23,12 +23,20 @@ function detectOS() {
 const myOS = detectOS();
 
 /* ---------- tabs ---------- */
-const TABS = ["home", "about", "download", "setup", "privacy", "feedback"];
-const TITLES = { home: "C.A.P. Inbox Assistant", about: "About · C.A.P.", download: "Download · C.A.P.", setup: "Setup · C.A.P.", privacy: "Privacy & security · C.A.P.", feedback: "Help & feedback · C.A.P." };
+const TABS = ["home", "about", "download", "setup", "docs", "privacy", "feedback"];
+const TITLES = { home: "C.A.P. Inbox Assistant", about: "About · C.A.P.", download: "Download · C.A.P.", setup: "Setup · C.A.P.",
+                 docs: "Documentation · C.A.P.", privacy: "Privacy & security · C.A.P.", feedback: "Help & feedback · C.A.P." };
+
+// A hash names a tab (#docs) or a place inside one (#docs-inbox, #tour): open the tab that holds it.
+function tabFromHash(hash) {
+  if (TABS.includes(hash)) return hash;
+  const owner = hash && document.getElementById(hash)?.closest(".tab");
+  return owner ? owner.id.replace(/^tab-/, "") : "home";
+}
 
 function route() {
   const hash = location.hash.slice(1);
-  const tab = TABS.includes(hash) ? hash : "home";
+  const tab = tabFromHash(hash);
   $$(".tab").forEach(s => { s.hidden = s.id !== `tab-${tab}`; });
   $$(".tabs a").forEach(a => {
     if (a.dataset.tab === tab) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
@@ -37,13 +45,20 @@ function route() {
   const fab = $("#fb-fab");  // may be missing for a few minutes after a deploy, while an older page is cached
   if (fab) fab.hidden = tab === "feedback";
   if (hash && !TABS.includes(hash) && document.getElementById(hash)) {
-    document.getElementById(hash).scrollIntoView();  // e.g. #tour on the home tab
+    // e.g. #tour on the home tab, or #docs-inbox. Jump without smooth scrolling: on page load a smooth scroll is
+    // cancelled while the rest of the page settles.
+    setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: "instant" }), 0);
   } else {
     window.scrollTo(0, 0);
     if (hash) $("#main").focus({ preventScroll: true });
   }
 }
 window.addEventListener("hashchange", route);
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";  // a section link must win over the old scroll spot
+window.addEventListener("load", () => {  // screenshots above a section can move it while they load
+  const el = document.getElementById(location.hash.slice(1));
+  if (el && !TABS.includes(location.hash.slice(1))) el.scrollIntoView({ behavior: "instant" });
+});
 
 /* ---------- visit and download counts (GoatCounter, cookie-free) ---------- */
 // Sends one tiny anonymous count per page view or download click: the page, the linking site and the screen width.
@@ -66,7 +81,7 @@ function count(path, title, { event = false, referrer = "" } = {}) {
 }
 
 function countPage() {
-  const tab = TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "home";
+  const tab = tabFromHash(location.hash.slice(1));
   if (tab === lastCounted) return;  // #tour and similar in-page links stay on the same tab
   const first = !lastCounted;
   lastCounted = tab;
@@ -279,6 +294,30 @@ function initFeedback() {
   });
 }
 
+/* ---------- documentation: search and contents ---------- */
+function initDocs() {
+  const input = $("#docs-search");
+  if (!input) return;
+  const sections = $$(".docs-sec");
+  const tocLinks = $$("#docs-toc a");
+  const narrow = window.matchMedia("(max-width: 900px)");
+  if (narrow.matches) $("#docs-toc").open = false;  // on phones the contents start folded so the text comes first
+  input.addEventListener("input", () => {
+    const words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    sections.forEach(sec => {
+      const match = words.every(w => sec.textContent.toLowerCase().includes(w));
+      sec.hidden = !match;
+      if (match) shown++;
+    });
+    tocLinks.forEach(a => { a.hidden = !!$(a.getAttribute("href"))?.hidden; });
+    $("#docs-empty").hidden = shown > 0;
+    $("#docs-search-status").textContent = words.length ? `${shown} of ${sections.length} sections match` : "";
+  });
+  // Picking a section on a phone folds the contents away again.
+  tocLinks.forEach(a => a.addEventListener("click", () => { if (narrow.matches) $("#docs-toc").open = false; }));
+}
+
 /* ---------- start ---------- */
 route();
 bindSwitch("setup");
@@ -286,4 +325,5 @@ bindSwitch("verify");
 initTour();
 initDownloads();
 initFeedback();
+initDocs();
 countPage();

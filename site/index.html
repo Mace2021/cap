@@ -24,6 +24,7 @@
       <a href="#about" data-tab="about">About</a>
       <a href="#download" data-tab="download">Download</a>
       <a href="#setup" data-tab="setup">Setup</a>
+      <a href="#docs" data-tab="docs">Documentation</a>
       <a href="#privacy" data-tab="privacy">Privacy &amp; security</a>
       <a href="#feedback" data-tab="feedback">Help &amp; feedback</a>
     </nav>
@@ -234,7 +235,7 @@ Categories=Office;Email;</code></pre></li>
     </ol>
 
     <h2>Then, in C.A.P.</h2>
-    <p>The first time it opens, C.A.P. walks you through three steps. Here's what each one needs.</p>
+    <p>The first time it opens, C.A.P. walks you through three steps. Here's what each one needs. For everything after setup, see the <a href="#docs">Documentation</a>.</p>
     <ol class="steps cont">
       <li><h3>Try the sample inbox (optional)</h3><p>Choose a sample business (home cleaning, tax firm or insurance agency) and click <strong>Load sample inbox</strong> to see drafts, fraud flags and client tracking. Remove it any time in <strong>Settings</strong>; your own setup is kept.</p></li>
       <li><h3>Choose the AI that writes drafts</h3>
@@ -340,6 +341,330 @@ Categories=Office;Email;</code></pre></li>
   </div>
 </section>
 
+<!-- ============================== DOCUMENTATION ============================== -->
+<section id="tab-docs" class="tab" aria-labelledby="docs-title" hidden>
+  <div class="wrap docs">
+    <aside class="docs-side" aria-label="Documentation contents">
+      <label class="docs-search-label" for="docs-search">Search the documentation</label>
+      <input id="docs-search" type="search" placeholder="Search, e.g. snooze, PIN, renewals" autocomplete="off">
+      <p class="fine" id="docs-search-status" aria-live="polite"></p>
+      <details class="docs-toc" id="docs-toc" open>
+        <summary>Contents</summary>
+        <nav>
+          <a href="#docs-start">Getting started</a>
+          <a href="#docs-navigation">Finding your way around</a>
+          <a href="#docs-workflow">Your daily workflow</a>
+          <a href="#docs-today">Today</a>
+          <a href="#docs-inbox">Inbox</a>
+          <a href="#docs-drafts">Working with a draft</a>
+          <a href="#docs-tasks">Tasks</a>
+          <a href="#docs-clients">Clients (tax &amp; bookkeeping)</a>
+          <a href="#docs-policies">Policies (insurance)</a>
+          <a href="#docs-knowledge">Knowledge</a>
+          <a href="#docs-security">Security</a>
+          <a href="#docs-settings">Settings</a>
+          <a href="#docs-ai">Choosing an AI engine</a>
+          <a href="#docs-email">Connecting your email</a>
+          <a href="#docs-shortcuts">Keyboard shortcuts</a>
+          <a href="#docs-troubleshooting">Troubleshooting</a>
+        </nav>
+      </details>
+    </aside>
+
+    <div class="docs-body">
+      <h1 id="docs-title">Documentation</h1>
+      <p class="lede">Everything you need to know to use C.A.P. day to day: where things are, what each screen does, and how to get the most from it. To install it, see <a href="#setup">Setup</a>.</p>
+      <p class="docs-empty" id="docs-empty" hidden>Nothing matches that search. Try a shorter word, or <a href="#feedback">ask the community</a>.</p>
+
+      <section class="docs-sec" id="docs-start">
+        <h2>Getting started</h2>
+        <p>The first time C.A.P. opens, it shows <strong>Set up C.A.P. in three steps</strong>:</p>
+        <ol>
+          <li><strong>Choose the AI that writes drafts.</strong> If Ollama is installed and running, C.A.P. finds it and lists your models; pick one and click <strong>Use this model</strong>. Otherwise you can use a cloud AI key later in Settings. See <a href="#docs-ai">Choosing an AI engine</a>.</li>
+          <li><strong>Connect your email, or try the sample inbox.</strong> Type your email address and click <strong>Continue</strong>, and C.A.P. shows the steps for your provider. Or pick a sample business and click <strong>Load sample inbox</strong> to explore first.</li>
+          <li><strong>Tell it about you and your business.</strong> Your name, business name and what you offer, with typical prices. Click <strong>Save</strong>. You can add much more later in <a href="#docs-knowledge">Knowledge</a>.</li>
+        </ol>
+        <h3>Try the sample inbox first</h3>
+        <p>There are three fictional businesses: a home cleaning business, a tax &amp; bookkeeping firm and an insurance agency. Each comes with real-looking emails, ready-made drafts, fraud examples and tracked clients or policies. Sample emails are marked <span class="tag">Sample</span>, and "sending" one doesn't email anyone.</p>
+        <p>While a sample is loaded, its business details stand in for yours. Remove it any time with <strong>Remove samples</strong> (in the Inbox or in Settings → Inbox); your own profile, signature and saved replies come back.</p>
+      </section>
+
+      <section class="docs-sec" id="docs-navigation">
+        <h2>Finding your way around</h2>
+        <p>The sidebar on the left takes you to each screen. A number next to a name shows how many things are waiting there.</p>
+        <table class="grid-table">
+          <thead><tr><th scope="col">Screen</th><th scope="col">What it's for</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Today</th><td>Your day at a glance: who needs a reply, who hasn't answered you, key dates, tasks due and your calendar.</td></tr>
+            <tr><th scope="row">Inbox</th><td>Read email and review, edit and send the drafted replies.</td></tr>
+            <tr><th scope="row">Tasks</th><td>Your to-do list, including tasks pulled from email.</td></tr>
+            <tr><th scope="row">Clients <span class="fine">or</span> Policies</th><td>Appears once you choose an industry: client returns for tax firms, or certificates and renewals for insurance agencies.</td></tr>
+            <tr><th scope="row">Knowledge</th><td>The facts drafts are allowed to use: business profile, saved replies, files and notes.</td></tr>
+            <tr><th scope="row">Security</th><td>Your protection score, app lock, fraud and sensitive-number warnings, and the audit log.</td></tr>
+            <tr><th scope="row">Settings</th><td>Email account, your name and signature, industry, AI engine, calendar, inbox options and your data.</td></tr>
+          </tbody>
+        </table>
+        <p>At the bottom of the sidebar: <strong>Check for new mail</strong> fetches mail now and shows progress; <strong>Light mode</strong> / <strong>Dark mode</strong> switches the theme; and, once app lock is on, <strong>Lock now</strong> locks C.A.P. straight away. A line there also shows which email account is connected, or that a sample inbox is loaded.</p>
+        <p>Press <span class="kbd">?</span> any time to see the <a href="#docs-shortcuts">keyboard shortcuts</a>.</p>
+      </section>
+
+      <section class="docs-sec" id="docs-workflow">
+        <h2>Your daily workflow</h2>
+        <p>Here's how mail moves through C.A.P., and what's left for you to do:</p>
+        <ol class="flow">
+          <li><strong>Mail arrives</strong><span>C.A.P. checks your mailbox every 10 minutes (you can change this), or when you click Check for new mail. It reads mail without marking it as read.</span></li>
+          <li><strong>It's sorted</strong><span>Each email gets a quick look: needs a reply, or FYI (newsletters, receipts, notifications). Urgent mail, likely fraud and emails holding sensitive numbers are labelled.</span></li>
+          <li><strong>Replies are drafted</strong><span>Urgent mail first, using only your Knowledge. If you open an email that hasn't been drafted yet, it jumps the queue.</span></li>
+          <li><strong>You review</strong><span>Read the draft, check any amber facts, change the tone or wording, and add details.</span></li>
+          <li><strong>You decide</strong><span>Send it, snooze the email, turn it into a task, mark it Done, or delete it. Nothing happens without your click.</span></li>
+          <li><strong>C.A.P. follows up</strong><span>If you ticked "Remind me if no answer", the email comes back on Today when they go quiet, with a one-click nudge.</span></li>
+        </ol>
+        <h3>A typical morning</h3>
+        <ol>
+          <li>Open <strong>Today</strong> and read the headline: how many emails need you and who hasn't replied.</li>
+          <li>Under <strong>Needs your reply</strong>, click <strong>Review draft</strong> on the first email. Urgent and fraud-flagged mail is at the top.</li>
+          <li>Check the draft, then <strong>Send reply</strong> (or <span class="kbd">Ctrl</span> + <span class="kbd">Enter</span>). C.A.P. moves to the next email.</li>
+          <li>Back on Today, use <strong>Draft a nudge</strong> for anyone under <strong>Waiting on others</strong>.</li>
+          <li>Add any <strong>Suggested from email</strong> tasks you want to keep, and tick off what's <strong>Due today</strong>.</li>
+          <li>Tax firms and agencies: glance at <strong>Key dates</strong> or <strong>Coming up</strong> for deadlines, missing documents and renewals.</li>
+        </ol>
+      </section>
+
+      <section class="docs-sec" id="docs-today">
+        <h2>Today</h2>
+        <p>The headline tells you how many emails need you, how many people haven't replied, and the time C.A.P. saved you this week. Below it:</p>
+        <ul>
+          <li><strong>Needs your reply:</strong> the emails waiting on you, most important first, each with a one-line summary and a <strong>Review draft</strong> button. <strong>See all</strong> opens the Inbox.</li>
+          <li><strong>Waiting on others:</strong> replies you sent with "Remind me if no answer" ticked that haven't been answered. <strong>Draft a nudge</strong> writes a polite follow-up for you to review; <strong>Dismiss</strong> stops tracking it.</li>
+          <li><strong>Key dates</strong> (tax firms) or <strong>Coming up</strong> (insurance agencies): upcoming deadlines, clients still owing documents, certificates due this week and renewals in the next 60 days.</li>
+          <li><strong>Due today:</strong> tasks due today; tick to complete.</li>
+          <li><strong>Suggested from email:</strong> to-dos C.A.P. spotted in your mail. Click <strong>Add</strong> to put one on your task list.</li>
+          <li><strong>Calendar:</strong> today's events, once Google Calendar is connected.</li>
+        </ul>
+        <p>C.A.P. also shows how many of your recent drafts went out with little or no editing, so you can see how well it's learning.</p>
+      </section>
+
+      <section class="docs-sec" id="docs-inbox">
+        <h2>Inbox</h2>
+        <p>The list is on the left and the selected email is on the right. Use the filter box to find mail by sender or subject.</p>
+        <h3>Tabs</h3>
+        <ul>
+          <li><strong>Needs reply:</strong> emails with a draft waiting for you.</li>
+          <li><strong>FYI:</strong> newsletters, receipts and notifications from the last 14 days, so you can check nothing was misfiled. If one does need an answer, open it and click <strong>Draft a reply anyway</strong>.</li>
+          <li><strong>Snoozed:</strong> emails you've put off; they come back by themselves at the time you chose. <strong>Bring it back now</strong> returns one early.</li>
+          <li><strong>Sent:</strong> your replies. <span class="tag">Tracking reply</span> means C.A.P. will remind you if there's no answer.</li>
+          <li><strong>Failed:</strong> appears only if a draft couldn't be written. Open the email and click <strong>Try again</strong>.</li>
+        </ul>
+        <h3>Labels on emails</h3>
+        <table class="grid-table">
+          <tbody>
+            <tr><th scope="row"><span class="tag bad">Urgent</span> <span class="tag ok">Important</span></th><td>How soon it needs you. For tax firms, IRS notices and near deadlines are urgent; for agencies, claims and certificate deadlines.</td></tr>
+            <tr><th scope="row"><span class="tag bad">Likely fraud</span> <span class="tag bad">Possible fraud</span></th><td>Signs of impersonation, such as a look-alike sender address, a fake IRS email or a request to change bank details. Open it to see why.</td></tr>
+            <tr><th scope="row"><span class="tag warn">Sensitive</span></th><td>The email contains a Social Security, account, card or license number.</td></tr>
+            <tr><th scope="row"><span class="tag warn">Check carefully</span></th><td>The AI wasn't confident about its draft. The reason is shown above the draft.</td></tr>
+            <tr><th scope="row"><span class="tag">Writing draft…</span> <span class="tag bad">Draft failed</span></th><td>The draft is being written, or couldn't be written.</td></tr>
+          </tbody>
+        </table>
+        <h3>Reading an email</h3>
+        <ul>
+          <li>A short <strong>summary</strong> sits at the top; the full text is under <strong>Original message</strong>.</li>
+          <li>A <strong>fraud warning</strong> lists what looked wrong and what to do. <strong>Add a "verify by phone" task</strong> reminds you to call the sender on a number you already have before acting.</li>
+          <li>A <strong>sensitive information</strong> notice shows the number masked, reminds you not to repeat it in your reply, and suggests deleting the email once it's saved securely.</li>
+          <li>Tax firms and agencies see a green bar when the sender is a tracked client, with offers such as <strong>Mark received</strong> when they say they've sent documents, or <strong>Track this client's return</strong> for someone new.</li>
+        </ul>
+        <h3>After you reply</h3>
+        <ul>
+          <li><strong>Send reply</strong> sends it from your own email account. Tick <strong>Remind me if no answer</strong> (ticked for you when your reply asks a question) to get a reminder on Today after 3 days, or the delay you set in Settings.</li>
+          <li><strong>Snooze…</strong> hides the email until <em>later today</em>, <em>tomorrow morning</em>, <em>next Monday</em> or <em>in a week</em>.</li>
+          <li><strong>Add task</strong> turns the email into a task linked back to it.</li>
+          <li><strong>Done</strong> (<span class="kbd">E</span>) files the email without replying and archives it in your mailbox.</li>
+          <li><strong>Delete</strong> moves it to your mailbox's Trash. Click twice to confirm.</li>
+        </ul>
+      </section>
+
+      <section class="docs-sec" id="docs-drafts">
+        <h2>Working with a draft</h2>
+        <p>Every draft is yours to edit. It's written from the email, your <a href="#docs-knowledge">Knowledge</a> and your signature, and it never invents prices, policies, dates or availability.</p>
+        <ul>
+          <li><strong>Quick replies:</strong> the buttons above the draft are short answers C.A.P. thinks fit, such as "Yes, Thursday works". Click one to rewrite the draft around it.</li>
+          <li><strong>Tone:</strong> <strong>Professional</strong>, <strong>Friendly</strong> or <strong>Concise</strong> rewrites the draft in that tone. Set the default in Settings → You.</li>
+          <li><strong>Insert saved reply…</strong> drops one of your saved replies in, filling in the client's first name, your name, your business name and your booking link. Check the details before sending.</li>
+          <li><strong>Save as saved reply</strong> keeps a good draft for next time.</li>
+          <li><strong>Tell the AI what to change:</strong> type an instruction such as "offer Thursday instead and mention the 10% repeat discount", then press <span class="kbd">Enter</span> or click <strong>Rewrite</strong>. <span class="kbd">R</span> jumps to this box.</li>
+          <li><strong>Tasks from this email:</strong> to-dos the email asks of you, each with <strong>Add task</strong>.</li>
+        </ul>
+        <h3>Fact highlighting</h3>
+        <p>Prices, dates, times, percentages, links and promises (refund, discount, free, guarantee) in the draft are highlighted as you type:</p>
+        <ul>
+          <li><span class="tag ok">Green</span> was found in the email, your business profile, files, saved replies or signature. The legend under the draft says where.</li>
+          <li><span class="tag warn">Amber</span> isn't in any of them, so check it before sending. Click an amber item in the legend to jump to it.</li>
+        </ul>
+        <h3>Two safety checks when you send</h3>
+        <ul>
+          <li><strong>Sensitive number in this reply:</strong> if your reply contains a Social Security, account or card number, C.A.P. stops and asks. Choose <strong>Edit reply</strong> to remove it (and point the client to your secure portal or a phone call), or <strong>Send anyway</strong> if you're sure.</li>
+          <li><strong>Teach C.A.P. from your edit?</strong> If you changed a fact before sending, for example a price from $240 to $260, C.A.P. offers to update your business profile so future drafts get it right. If you rewrote most of the draft, it offers to save your version as a saved reply. Click <strong>Not now</strong> to skip.</li>
+        </ul>
+      </section>
+
+      <section class="docs-sec" id="docs-tasks">
+        <h2>Tasks</h2>
+        <ul>
+          <li>Type a task, optionally choose a due date and time and a priority (<em>Normal</em>, <em>High</em> or <em>Low</em>), and click <strong>Add task</strong>. High-priority tasks show in bold.</li>
+          <li>Tick <strong>Also add to calendar</strong> to put a task with a time on your Google Calendar (once it's connected).</li>
+          <li>Tasks made from an email have a <strong>from email</strong> link back to it.</li>
+          <li>Tick a task to complete it; <strong>Clear completed</strong> removes finished ones.</li>
+          <li><strong>Next 7 days</strong> on the right shows your calendar for the week.</li>
+        </ul>
+      </section>
+
+      <section class="docs-sec" id="docs-clients">
+        <h2>Clients (tax &amp; bookkeeping)</h2>
+        <p>Choose <strong>Tax &amp; bookkeeping</strong> in Settings → Your industry and a <strong>Clients</strong> screen appears in the sidebar. It tracks each client's return and the documents they still owe you.</p>
+        <h3>Adding a client</h3>
+        <p>Click <strong>Add client</strong>, or open a client's email and choose <strong>Track this client's return</strong>. Fill in their name and email, status, an optional due date, the return type and tax year, and tick the documents they need to send. W-2, 1099-INT, 1098 mortgage interest, prior-year return and photo ID are ticked to start.</p>
+        <h3>Statuses</h3>
+        <p><em>Waiting on documents</em> → <em>In preparation</em> → <em>Ready to sign</em> → <em>Filed</em>, or <em>Extended</em>. Change a status from the menu on the client's card. Use the tabs above the list to see open clients, one status, or all.</p>
+        <h3>Documents</h3>
+        <ul>
+          <li>Click a document on the card to mark it received (click again to undo). The bar shows progress.</li>
+          <li>When a client emails to say they've sent documents, C.A.P. offers <strong>Mark received</strong> right in the email.</li>
+          <li>Once everything's in, the client moves to <em>In preparation</em> by itself.</li>
+          <li><strong>Reminder for N missing documents</strong> writes an email listing exactly what's missing and pointing to your secure portal. Copy it or open it in your email app.</li>
+        </ul>
+        <h3>Key dates and timelines</h3>
+        <ul>
+          <li><strong>Federal deadlines</strong> (estimated taxes, W-2s and 1099s, business and individual returns, extensions) are worked out every year and moved off weekends and holidays the way the IRS does.</li>
+          <li><strong>Your dates:</strong> click <strong>Add date</strong> for state deadlines, office closures or anything else. Tick <strong>Repeats every year</strong> for yearly dates.</li>
+          <li><strong>Client timeline:</strong> each card lists the return's due date and any dates you add for that client (choose the client under "For").</li>
+          <li>Dates in the next 120 days show under Key dates on this screen and on Today, with a countdown.</li>
+        </ul>
+      </section>
+
+      <section class="docs-sec" id="docs-policies">
+        <h2>Policies (insurance)</h2>
+        <p>Choose <strong>Insurance agency</strong> in Settings → Your industry and a <strong>Policies</strong> screen appears, with two lists.</p>
+        <ul>
+          <li><strong>Certificate requests:</strong> who asked, the certificate holder, whether they want to be listed as additional insured, and the due date. Statuses: <em>Requested</em>, <em>Checking with carrier</em>, <em>Issued</em>. When an email asks for a certificate, C.A.P. offers <strong>Track this certificate request</strong> and fills in the holder and due date it found.</li>
+          <li><strong>Renewals:</strong> the client, policy, carrier, renewal date and premium change. Statuses: <em>Upcoming</em>, <em>Re-shopping</em>, <em>Renewed</em>, <em>Lost</em>. <strong>Check-in email</strong> writes a note to the client before renewal.</li>
+        </ul>
+        <p>On Today, <strong>Coming up</strong> lists certificates due within a week and renewals within 60 days.</p>
+      </section>
+
+      <section class="docs-sec" id="docs-knowledge">
+        <h2>Knowledge</h2>
+        <p>Knowledge is everything drafts are allowed to use. If a fact isn't here or in the email, the draft won't promise it. It has four tabs.</p>
+        <h3>Business profile</h3>
+        <p>Fill in as much as you can, then click <strong>Save profile</strong>:</p>
+        <ul class="cols-list">
+          <li>Business name</li><li>What you do / who you serve</li><li>Services &amp; prices</li><li>Hours, location, service area</li>
+          <li>Policies (booking, cancellation, refunds, payment)</li><li>Booking / payment / website links</li><li>Common questions &amp; your answers</li><li>Never promise or say</li>
+        </ul>
+        <p>"Never promise or say" is your safety list, for example "Never promise a refund amount" or "Don't confirm coverage before the carrier does". The industry starter kits fill it in for you if it's empty.</p>
+        <h3>Saved replies</h3>
+        <p>Answers you send often. Click <strong>New saved reply</strong>, give it a name and write the text. These placeholders are filled in when you insert it: <code>{first_name}</code>, <code>{my_name}</code>, <code>{business_name}</code> and <code>{booking_link}</code>. The AI also borrows their wording for similar emails. <strong>Industry starter kits</strong> adds 14 ready-made replies for tax firms or insurance agencies.</p>
+        <h3>Files &amp; notes</h3>
+        <ul>
+          <li><strong>Upload files</strong> (or drag them in): price lists, FAQs, menus and policies as PDF, Word, Excel, PowerPoint or text, up to 25 MB each. The relevant passages are used in drafts.</li>
+          <li><strong>New note</strong> for quick facts that don't fit the profile, like a parking note or a supplier's name.</li>
+        </ul>
+        <h3>Ask</h3>
+        <p>Ask a question about your own business, such as "What's our cancellation policy for same-week bookings?". The answer comes only from your profile, files and notes, and lists its sources. It's a quick way to check what your drafts will say.</p>
+      </section>
+
+      <section class="docs-sec" id="docs-security">
+        <h2>Security</h2>
+        <p>The Security screen shows a score out of 100 based on how many protections are on, lists anything that <strong>Needs your attention</strong> (such as fraud attempts and emails holding Social Security numbers), and lets you turn each protection on.</p>
+        <h3>Protections</h3>
+        <ul>
+          <li><strong>Client email stays private from AI companies:</strong> on when drafting runs on your computer. With a cloud AI, tick <strong>Mask SSNs and account numbers before any cloud AI</strong>.</li>
+          <li><strong>App lock:</strong> click <strong>Turn on app lock</strong>, choose a PIN (4 to 32 characters) and save the <strong>recovery code</strong> it shows somewhere safe, away from the computer. C.A.P. then asks for the PIN when it opens and after you've been away. Choose <em>Lock after 5, 10, 15, 30 or 60 min away</em>, <strong>Change PIN</strong> or <strong>Turn off</strong>. After 5 wrong PINs it waits before letting anyone try again.</li>
+          <li><strong>Passwords and keys in the Windows vault:</strong> your email password and AI key are kept in Windows Credential Manager (macOS Keychain or the Linux keyring on those systems).</li>
+          <li><strong>Old email text is disposed of:</strong> choose to keep email text until you delete it, or for 30 days, 90 days, 6 months, 1 year or 2 years after it's handled.</li>
+          <li><strong>Numbers masked in handled emails:</strong> replaces full Social Security and account numbers in emails you've finished with.</li>
+          <li><strong>Fraud &amp; impersonation shield</strong> and <strong>Sensitive-number guard:</strong> always on; see <a href="#docs-inbox">Inbox</a>.</li>
+          <li><strong>Audit log:</strong> sends, deletions, exports and security changes are recorded. <strong>Download audit log</strong> saves it as a spreadsheet.</li>
+          <li><strong>Disk encryption:</strong> C.A.P. can't check this itself. Turn on BitLocker or Device Encryption in Windows Settings, then tick to confirm.</li>
+          <li><strong>Industry safety rules:</strong> on once you choose your industry.</li>
+        </ul>
+        <p><strong>Summary for your security plan</strong> writes a plain description of how C.A.P. handles client data, ready to paste into your written information security plan.</p>
+      </section>
+
+      <section class="docs-sec" id="docs-settings">
+        <h2>Settings</h2>
+        <p>The top of Settings shows the folder where everything is stored on your computer.</p>
+        <ul>
+          <li><strong>Email account:</strong> connect or <strong>Disconnect</strong> your mailbox. See <a href="#docs-email">Connecting your email</a>.</li>
+          <li><strong>You:</strong> your name, default tone and <strong>signature</strong> (added to every draft exactly as written). <strong>Learn my style</strong> reads your recent sent mail (at least 3 emails) to match your usual greeting, sign-off and length.</li>
+          <li><strong>Your industry:</strong> General small business, Tax &amp; bookkeeping or Insurance agency. It changes what counts as urgent and what drafts must never promise, adds the Clients or Policies screen, and offers <strong>Add starter kit</strong>: 14 saved replies, safety rules and a document checklist. Nothing you've written is changed.</li>
+          <li><strong>AI engine:</strong> <strong>On this computer (Ollama)</strong> or <strong>Cloud, with your API key</strong>. Pick a model and click <strong>Test and use this model</strong>. <strong>Extra quality check on each draft</strong> has the AI review its own work, which takes about twice as long on local models.</li>
+          <li><strong>Google Calendar (optional):</strong> shows today's events and lets drafts avoid times you're already booked. Follow the steps shown to add your Google sign-in file, then <strong>Connect Google</strong>.</li>
+          <li><strong>Inbox:</strong> how often to check for new mail (<em>only when I click</em>, or every 5, 10, 15, 30 or 60 minutes); when to write drafts (<em>right after sorting, urgent first</em>, or <em>only when I open an email</em>, fastest on slow computers); and after how many days to remind you about unanswered replies (1 to 14).</li>
+          <li><strong>Sample inbox for demos:</strong> load, switch or remove a sample business.</li>
+          <li><strong>Your data:</strong> <strong>Export my data (JSON)</strong> saves everything except passwords and keys; <strong>Summary for your security plan</strong>; and <strong>Delete email history</strong> removes stored email text from C.A.P. Your mailbox itself isn't touched.</li>
+        </ul>
+      </section>
+
+      <section class="docs-sec" id="docs-ai">
+        <h2>Choosing an AI engine</h2>
+        <table class="grid-table">
+          <thead><tr><th scope="col"></th><th scope="col">On this computer (Ollama)</th><th scope="col">Cloud, with your API key</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Privacy</th><td>Email never leaves your computer</td><td>The text needed for each draft goes to that provider</td></tr>
+            <tr><th scope="row">Cost</th><td>Free</td><td>Pay-as-you-go with the provider</td></tr>
+            <tr><th scope="row">Speed</th><td>Depends on your computer</td><td>Fast on any computer</td></tr>
+            <tr><th scope="row">Setup</th><td>Install Ollama and download a model</td><td>Paste a key from OpenAI, Anthropic, Google Gemini, Groq or OpenRouter</td></tr>
+          </tbody>
+        </table>
+        <p>For a local model, pick one that fits your computer's memory. Settings → AI engine → <strong>Recommended models</strong> lists them with the command to download each. For example <code>ollama pull qwen3.5:4b</code> for 8 GB of memory, or <code>ollama pull qwen3.5:9b</code> for 12 GB or more. After downloading, click <strong>Test and use this model</strong>.</p>
+        <p>Cloud keys are kept in Windows Credential Manager. <strong>Remove saved key</strong> deletes yours.</p>
+      </section>
+
+      <section class="docs-sec" id="docs-email">
+        <h2>Connecting your email</h2>
+        <p>Type your address in setup or Settings → Email account and click <strong>Continue</strong>. C.A.P. picks the right way to connect and shows the steps.</p>
+        <table class="grid-table">
+          <thead><tr><th scope="col">Your email</th><th scope="col">What you do</th></tr></thead>
+          <tbody>
+            <tr><td>Gmail and Google Workspace, Yahoo, iCloud, AOL, Zoho, Fastmail</td><td>Create an <strong>app password</strong> in your account's security settings (two-step verification must be on) and paste it in. C.A.P. links to the right page. About 2 minutes.</td></tr>
+            <tr><td>Your own domain</td><td>Enter your email password or app password. The server names are filled in as <code>mail.yourdomain.com</code> and can be changed.</td></tr>
+            <tr><td>Outlook.com, Hotmail, Microsoft 365</td><td>Sign in with Microsoft. Coming in a later release.</td></tr>
+          </tbody>
+        </table>
+        <p>C.A.P. only changes your mailbox when you ask: it reads mail without marking it as read, <strong>Done</strong> archives, and <strong>Delete</strong> moves mail to Trash.</p>
+      </section>
+
+      <section class="docs-sec" id="docs-shortcuts">
+        <h2>Keyboard shortcuts</h2>
+        <table class="grid-table">
+          <tbody>
+            <tr><th scope="row"><span class="kbd">1</span> to <span class="kbd">7</span></th><td>Today, Inbox, Tasks, Clients/Policies, Knowledge, Security, Settings</td></tr>
+            <tr><th scope="row"><span class="kbd">J</span> / <span class="kbd">K</span></th><td>Next / previous email in the Inbox</td></tr>
+            <tr><th scope="row"><span class="kbd">R</span></th><td>Tell the AI what to change in the draft</td></tr>
+            <tr><th scope="row"><span class="kbd">E</span></th><td>Done (archive without replying)</td></tr>
+            <tr><th scope="row"><span class="kbd">Ctrl</span> + <span class="kbd">Enter</span></th><td>Send reply</td></tr>
+            <tr><th scope="row"><span class="kbd">?</span></th><td>Show these shortcuts in the app</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="docs-sec" id="docs-troubleshooting">
+        <h2>Troubleshooting</h2>
+        <dl class="faq">
+          <dt>A draft says "Draft failed"</dt><dd>Usually the AI engine wasn't reachable. Make sure Ollama is running (or your cloud key is valid in Settings → AI engine), then open the email and click <strong>Try again</strong>.</dd>
+          <dt>"Ollama isn't running"</dt><dd>Open the Ollama app, or run <code>ollama serve</code>, then click <strong>Test and use this model</strong>. If it says no models are installed, download one as shown in <a href="#docs-ai">Choosing an AI engine</a>.</dd>
+          <dt>Drafts are slow</dt><dd>Choose a smaller model, set Settings → Inbox → Write drafts to <em>Only when I open an email</em>, turn off the extra quality check, or use a cloud key.</dd>
+          <dt>An email that needs an answer went to FYI</dt><dd>Open it under the FYI tab and click <strong>Draft a reply anyway</strong>.</dd>
+          <dt>A draft got a fact wrong</dt><dd>Fix it before sending; C.A.P. offers to update your profile so it's right next time. Also check the fact is in Knowledge, and add anything you never want promised to "Never promise or say".</dd>
+          <dt>I forgot my PIN</dt><dd>On the lock screen, click <strong>Forgot your PIN? Use your recovery code</strong> and enter the code you saved. App lock turns off; set a new PIN in Security.</dd>
+          <dt>Email won't connect</dt><dd>Most providers need an app password, not your normal password, and two-step verification on to create one. Check the address and server names, then try again.</dd>
+          <dt>Where is my data?</dt><dd>On your computer only, in the folder shown at the top of Settings. Use <strong>Export my data</strong> for a copy.</dd>
+        </dl>
+        <p>Installation problems are covered in <a href="#setup">Setup</a>. Still stuck? <a href="#feedback">Ask in Help &amp; feedback</a>.</p>
+      </section>
+    </div>
+  </div>
+</section>
+
 <!-- ============================== HELP & FEEDBACK ============================== -->
 <section id="tab-feedback" class="tab" aria-labelledby="feedback-title" hidden>
   <div class="wrap narrow">
@@ -396,7 +721,7 @@ Categories=Office;Email;</code></pre></li>
 <footer class="foot">
   <div class="wrap foot-row">
     <span>C.A.P. Inbox Assistant · <span data-version>2.2.0</span></span>
-    <nav aria-label="Footer"><a href="#download">Download</a><a href="#setup">Setup</a><a href="#privacy">Privacy &amp; security</a><a href="#feedback">Help &amp; feedback</a><a data-releases-link href="#download">Releases</a></nav>
+    <nav aria-label="Footer"><a href="#download">Download</a><a href="#setup">Setup</a><a href="#docs">Documentation</a><a href="#privacy">Privacy &amp; security</a><a href="#feedback">Help &amp; feedback</a><a data-releases-link href="#download">Releases</a></nav>
   </div>
 </footer>
 <script src="site.js"></script>
