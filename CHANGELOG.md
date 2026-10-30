@@ -1,4 +1,7 @@
-# C.A.P. 2.2.4 — 2026-10-30
+# C.A.P. 2.2.5 — 2026-10-30
+
+(2.2.4 was never published: GitHub's macOS 14 build machines were switched off that day. 2.2.5 is the same
+release, with the Mac version built on macOS 15.)
 
 ## Added
 - **Outlook.com, Hotmail and Microsoft 365** through Sign in with Microsoft (the app registration is now built in).

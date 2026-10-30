@@ -19,7 +19,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-14, ubuntu-22.04]
+        # macOS 15 is Apple silicon; GitHub retires its macOS 14 images on November 2, 2026.
+        os: [windows-latest, macos-15, ubuntu-22.04]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     env:
