@@ -33,16 +33,17 @@ PRIVACY AND SECURITY
 • Automatic clean-up of old email text, and an audit log you can download
 • No analytics or telemetry in the app
 
-Try it first with a built-in sample inbox (home cleaning, tax firm or insurance agency) before connecting your own email. Works with Gmail and Google Workspace, Yahoo, iCloud, AOL, Zoho, Fastmail and your own business domain. Outlook and Microsoft 365 sign-in is coming in a later release.
+Try it first with a built-in sample inbox (home cleaning, tax firm or insurance agency) before connecting your own email. Works with Outlook.com and Microsoft 365 (Sign in with Microsoft, including business addresses), Gmail and Google Workspace, Yahoo, iCloud, AOL, Zoho, Fastmail and your own business domain.
 
 Setup guide, privacy details and feedback: https://mace2021.github.io/cap/
 
 ## What's new in this version
-• A Windows installer: Start menu entry, uninstall from Settings, no administrator password needed
-• Fixes a start-up error after unzipping the download with Extract All
-• Federal tax deadlines now worked out for every year, plus your own firm and client dates
+• Outlook.com and Microsoft 365 now work: Sign in with Microsoft, including business addresses on Microsoft 365
+• Business email on Google Workspace is recognised automatically
+• C.A.P. has its own icon in the Start menu and taskbar
 
 ## Product features (one per line)
+Works with Outlook, Microsoft 365, Gmail, Google Workspace, Yahoo, iCloud and business email
 Drafts email replies in your voice from your own prices, hours and policies
 You review every draft; nothing is sent without your click
 Runs on your PC: free local AI with Ollama, or your own cloud AI key

@@ -1,3 +1,15 @@
+# C.A.P. 2.2.4 — 2026-10-30
+
+## Added
+- **Outlook.com, Hotmail and Microsoft 365** through Sign in with Microsoft (the app registration is now built in).
+- Business domains are recognised from their mail (MX) records through the computer's own DNS: a domain on
+  Microsoft 365 gets Sign in with Microsoft, one on Google Workspace gets the Gmail app-password steps.
+- "Sign in with Microsoft instead" on the connect screen for a business domain DNS didn't reveal.
+
+## Fixed
+- A business address on Microsoft 365 that signed in with Microsoft was given its own domain as the sending
+  server instead of smtp.office365.com, so replies couldn't be sent.
+
 # C.A.P. 2.2.3 — 2026-10-23
 
 ## Added

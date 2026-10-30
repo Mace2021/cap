@@ -324,7 +324,8 @@ function mountConnectEmail(box, onDone) {
       box.innerHTML = `<p><strong>${esc(info.label)}</strong> · ${esc(address)} <button class="link-btn" id="ce-back" type="button">Change</button></p>
         ${info.microsoft_ready ? `${steps()}<div class="row"><button class="primary" id="ce-ms" data-busy="Starting…">Sign in with Microsoft</button></div><div id="ce-ms-code"></div>`
           : `<div class="notice">Microsoft no longer lets apps sign in to Outlook or Microsoft 365 with a password, and this copy of C.A.P. isn't set up for Microsoft sign-in yet. Ask whoever gave you C.A.P. for the updated version, or try the sample inbox for now.</div>`}`;
-      $("#ce-back", box).onclick = step1;
+      // "Change" after switching to Microsoft goes back to the password form it came from.
+      $("#ce-back", box).onclick = () => { if (info.switched) { info = info.switched; step2(); } else step1(); };
       $("#ce-ms", box)?.addEventListener("click", e => withBusy(e.target, async () => {
         const flow = await api("/api/account/microsoft/start", { method: "POST" });
         showMsCode(flow);
@@ -332,7 +333,8 @@ function mountConnectEmail(box, onDone) {
       return;
     }
     box.innerHTML = `<p><strong>${esc(info.label)}</strong> · ${esc(address)} <button class="link-btn" id="ce-back" type="button">Change</button></p>
-      ${steps()}${info.help_url ? `<p style="margin:-4px 0 10px"><a href="${esc(info.help_url)}" target="_blank" rel="noopener">Open ${esc(info.label.split(" /")[0])} security settings</a></p>` : ""}
+      ${info.custom_domain && info.microsoft_ready ? `<p class="muted" style="font-size:14px;margin:-4px 0 10px">Is this a Microsoft 365 business mailbox? <button class="link-btn" id="ce-use-ms" type="button">Sign in with Microsoft instead</button></p>` : ""}
+      ${steps()}${info.help_url ?`<p style="margin:-4px 0 10px"><a href="${esc(info.help_url)}" target="_blank" rel="noopener">Open ${esc(info.label.split(" /")[0])} security settings</a></p>` : ""}
       <form class="stack" id="ce-pw" autocomplete="off">
         <label class="field">${info.provider === "other" ? "Password (or app password)" : "App password"}<input id="ce-pass" type="password" autocomplete="new-password" required></label>
         <details ${info.custom_domain ? "open" : ""}><summary class="muted" style="cursor:pointer;font-size:13px">Server settings</summary>
@@ -347,6 +349,13 @@ function mountConnectEmail(box, onDone) {
       </form>
       ${info.provider === "gmail" ? `<p class="muted" style="font-size:13px;margin-top:10px">Prefer Google sign-in? It also adds your calendar: Settings → Google Calendar.</p>` : ""}`;
     $("#ce-back", box).onclick = step1;
+    // DNS didn't show Microsoft 365 for this domain, but the person knows it's on it: use Microsoft sign-in.
+    $("#ce-use-ms", box)?.addEventListener("click", () => {
+      info = { ...info, method: "microsoft", label: "Microsoft 365", switched: info,
+               steps: ["Click “Sign in with Microsoft”.", "A code appears here; enter it on the Microsoft page that opens.",
+                       "Approve access. C.A.P. never sees your password."] };
+      step2();
+    });
     $("#ce-pw", box).onsubmit = e => {
       e.preventDefault();
       withBusy(e.submitter || $("#ce-pw button", box), async () => {

@@ -236,6 +236,7 @@ PyInstaller.__main__.run([
     "--hidden-import=tracker",
     "--collect-submodules=keyring",
     "--collect-submodules=msal",
+    "--collect-submodules=dns",  # dnspython loads its record types dynamically
 
     # litellm dynamically imports provider-specific modules depending on
     # which model you call. Collecting everything up front avoids

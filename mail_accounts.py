@@ -98,6 +98,22 @@ DOMAIN_PROVIDERS = {
 CONSUMER_MICROSOFT = {"outlook.com", "hotmail.com", "live.com", "msn.com"}
 
 
+def mx_provider(domain):
+    """Which big provider runs a business domain's mail, read from its MX records through this computer's own DNS.
+    Most offices on Microsoft 365 or Google Workspace use their own domain, so the domain alone doesn't say."""
+    try:
+        import dns.resolver
+
+        hosts = [str(r.exchange).rstrip(".").lower() for r in dns.resolver.resolve(domain, "MX", lifetime=4)]
+    except Exception:  # no network, no MX records, or a DNS error: fall back to generic IMAP
+        return None
+    if any(h.endswith(".mail.protection.outlook.com") for h in hosts):
+        return "microsoft"
+    if any(h.endswith(".google.com") or h.endswith(".googlemail.com") for h in hosts):
+        return "gmail"
+    return None
+
+
 def detect_provider(address):
     address = (address or "").strip().lower()
     if not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", address):
@@ -110,7 +126,7 @@ def detect_provider(address):
             if domain.startswith(suffix):
                 key = provider
                 break
-    key = key or "other"
+    key = key or mx_provider(domain) or "other"
     p = PROVIDERS[key]
     imap_host, imap_port = p["imap"]
     smtp_host, smtp_port = p["smtp"]
@@ -121,7 +137,8 @@ def detect_provider(address):
     return {"provider": key, "label": p["label"], "method": p["method"], "steps": p["steps"],
             "help_url": p.get("help_url"), "imap_host": imap_host, "imap_port": imap_port,
             "smtp_host": smtp_host, "smtp_port": smtp_port,
-            "microsoft_ready": bool(microsoft_client_id()) if key == "microsoft" else None,
+            # Also for other domains, so a business on Microsoft 365 that DNS didn't reveal can switch to it.
+            "microsoft_ready": bool(microsoft_client_id()),
             "custom_domain": key == "other"}
 
 
@@ -214,11 +231,13 @@ def microsoft_start():
             if "access_token" in result:
                 _save_cache(c, cache2)
                 address = (result.get("id_token_claims") or {}).get("preferred_username", "")
-                info = detect_provider(address) if "@" in address else PROVIDERS["microsoft"]
+                domain = address.lower().rsplit("@", 1)[-1]
+                # Personal Outlook.com accounts send through smtp-mail.outlook.com; every Microsoft 365 mailbox,
+                # whatever its domain, through smtp.office365.com.
+                smtp_host = "smtp-mail.outlook.com" if domain in CONSUMER_MICROSOFT else "smtp.office365.com"
                 save_account(c, {"kind": "microsoft", "provider": "microsoft", "address": address.lower(),
                                  "imap_host": "outlook.office365.com", "imap_port": 993,
-                                 "smtp_host": info.get("smtp_host", "smtp.office365.com"), "smtp_port": 587,
-                                 "saves_sent": True})
+                                 "smtp_host": smtp_host, "smtp_port": 587, "saves_sent": True})
                 _ms_flow.update({"state": "done", "address": address})
             else:
                 _ms_flow.update({"state": "error", "error": result.get("error_description") or result.get("error")})

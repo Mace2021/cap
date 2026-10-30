@@ -467,10 +467,25 @@ class AccountTests(Base):
         self.assertEqual(mail_accounts.detect_provider("Sam@Gmail.com")["imap_host"], "imap.gmail.com")
         ms = mail_accounts.detect_provider("sam@hotmail.com")
         self.assertEqual((ms["method"], ms["smtp_host"]), ("microsoft", "smtp-mail.outlook.com"))
-        other = mail_accounts.detect_provider("sam@brightside.co")
+        with patch.object(mail_accounts, "mx_provider", return_value=None):
+            other = mail_accounts.detect_provider("sam@brightside.co")
         self.assertEqual((other["provider"], other["imap_host"]), ("other", "mail.brightside.co"))
         with self.assertRaises(ValueError):
             mail_accounts.detect_provider("not-an-email")
+
+    def test_business_domains_on_microsoft_365_and_google_are_recognised(self):
+        def mx(hosts):
+            records = [type("MX", (), {"exchange": h + "."})() for h in hosts]
+            return patch("dns.resolver.resolve", return_value=records)
+
+        with mx(["laketax-com.mail.protection.outlook.com"]):
+            m365 = mail_accounts.detect_provider("dana@laketax.com")
+        self.assertEqual((m365["provider"], m365["method"], m365["imap_host"], m365["smtp_host"]),
+                         ("microsoft", "microsoft", "outlook.office365.com", "smtp.office365.com"))
+        with mx(["aspmx.l.google.com", "alt1.aspmx.l.google.com"]):
+            self.assertEqual(mail_accounts.detect_provider("jo@summitridge.example")["provider"], "gmail")
+        with patch("dns.resolver.resolve", side_effect=OSError("no network")):
+            self.assertEqual(mail_accounts.detect_provider("sam@brightside.co")["provider"], "other")
 
     def test_password_connect_tests_login_and_keeps_password_out_of_api(self):
         with patch.object(mail_accounts.ImapMailbox, "test", return_value=True):
@@ -495,7 +510,8 @@ class AccountTests(Base):
     def test_microsoft_accounts_cannot_use_passwords(self):
         r = self.client.post("/api/account/password", json={"address": "sam@outlook.com", "password": "pw"})
         self.assertIn("Sign in with Microsoft", r.json()["detail"])
-        r = self.client.post("/api/account/microsoft/start")
+        with patch.object(mail_accounts, "microsoft_client_id", return_value=""):  # a build without the app ID
+            r = self.client.post("/api/account/microsoft/start")
         self.assertIn("isn't configured", r.json()["detail"])
 
     def test_imap_fetch_threads_and_never_marks_read(self):

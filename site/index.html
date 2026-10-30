@@ -136,15 +136,17 @@
       <tbody>
         <tr><td>Gmail and Google Workspace, Yahoo, iCloud, AOL, Zoho, Fastmail</td><td>Secure IMAP and SMTP with an app password (about 2 minutes to create)</td></tr>
         <tr><td>Your own domain (you@yourbusiness.com)</td><td>IMAP and SMTP with your email password or app password</td></tr>
-        <tr><td>Outlook.com, Hotmail, Microsoft 365</td><td>Sign in with Microsoft. <em>Coming in a later release.</em></td></tr>
+        <tr><td>Outlook.com, Hotmail, Microsoft 365 (including your own domain on Microsoft 365)</td><td>Sign in with Microsoft: enter a short code on Microsoft's page and approve. C.A.P. never sees your password.</td></tr>
         <tr><td>Google Calendar (optional)</td><td>Google sign-in, so drafts avoid times you're already booked</td></tr>
       </tbody>
     </table>
 
     <h2>Release notes</h2>
     <div class="notes">
-      <h3>Version <span data-version>2.2.2</span></h3>
+      <h3>Version <span data-version>2.2.4</span></h3>
       <ul>
+        <li>Outlook.com and Microsoft 365 now work with Sign in with Microsoft, including business addresses on Microsoft 365.</li>
+        <li>Business email on Google Workspace is recognised automatically.</li>
         <li>A Windows installer: Start menu entry, uninstall from Settings, no administrator password needed.</li>
         <li>Fixes a Windows start-up error ("Failed to resolve Python.Runtime.Loader.Initialize") after unzipping the download with Extract All.</li>
         <li>Key dates never run out: federal deadlines are worked out every year, moved off weekends and holidays.</li>
@@ -252,7 +254,7 @@ Categories=Office;Email;</code></pre></li>
         <p><strong>Faster on older computers:</strong> choose <strong>Cloud</strong> and paste an API key from OpenAI, Anthropic, Google Gemini, Groq or OpenRouter. The text needed for each draft then goes to that company. See <a href="#privacy">Privacy &amp; security</a>.</p></li>
       <li><h3>Connect your email</h3>
         <p>Type your email address. C.A.P. picks the right way to connect and links to the page you need. For Gmail, Yahoo, iCloud, AOL, Zoho and Fastmail, create an <strong>app password</strong> (your provider's security settings; two-step verification must be on) and paste it in. For your own domain, use your email password or app password; the server names are filled in for you and can be changed.</p>
-        <p class="fine">Outlook.com and Microsoft 365 sign-in is coming in a later release.</p></li>
+        <p><strong>Outlook.com, Hotmail and Microsoft 365</strong> (including business addresses on Microsoft 365): click <strong>Sign in with Microsoft</strong>, enter the code C.A.P. shows on Microsoft's page, and approve. Your company's IT admin may need to approve C.A.P. once for your organisation.</p></li>
       <li><h3>Tell it about your business</h3><p>Add your name, business name, services and prices. Then open <strong>Knowledge</strong> to add hours, policies, links and common questions, and upload price lists or policy documents with <strong>Upload files</strong>. Drafts use only what's here.</p></li>
       <li><h3>Pick your industry</h3><p>In <strong>Settings → Your industry</strong>, choose Tax &amp; bookkeeping or Insurance agency and click <strong>Add starter kit</strong> for 14 saved replies, safety rules and a checklist.</p></li>
       <li><h3>Lock it down</h3><p>Open <strong>Security</strong> and turn on <strong>App lock</strong> (save your recovery code somewhere safe), choose how long to keep old email text, and turn on disk encryption for your computer (BitLocker, FileVault or LUKS).</p></li>
@@ -627,7 +629,7 @@ Categories=Office;Email;</code></pre></li>
           <tbody>
             <tr><td>Gmail and Google Workspace, Yahoo, iCloud, AOL, Zoho, Fastmail</td><td>Create an <strong>app password</strong> in your account's security settings (two-step verification must be on) and paste it in. C.A.P. links to the right page. About 2 minutes.</td></tr>
             <tr><td>Your own domain</td><td>Enter your email password or app password. The server names are filled in as <code>mail.yourdomain.com</code> and can be changed.</td></tr>
-            <tr><td>Outlook.com, Hotmail, Microsoft 365</td><td>Sign in with Microsoft. Coming in a later release.</td></tr>
+            <tr><td>Outlook.com, Hotmail, Microsoft 365</td><td>Click <strong>Sign in with Microsoft</strong>, enter the code C.A.P. shows on Microsoft's page, and approve. C.A.P. never sees your password. Business addresses on Microsoft 365 are recognised automatically; if not, choose <strong>Sign in with Microsoft instead</strong>. Your IT admin may need to approve C.A.P. once for your organisation.</td></tr>
           </tbody>
         </table>
         <p>C.A.P. only changes your mailbox when you ask: it reads mail without marking it as read, <strong>Done</strong> archives, and <strong>Delete</strong> moves mail to Trash.</p>
@@ -656,7 +658,7 @@ Categories=Office;Email;</code></pre></li>
           <dt>An email that needs an answer went to FYI</dt><dd>Open it under the FYI tab and click <strong>Draft a reply anyway</strong>.</dd>
           <dt>A draft got a fact wrong</dt><dd>Fix it before sending; C.A.P. offers to update your profile so it's right next time. Also check the fact is in Knowledge, and add anything you never want promised to "Never promise or say".</dd>
           <dt>I forgot my PIN</dt><dd>On the lock screen, click <strong>Forgot your PIN? Use your recovery code</strong> and enter the code you saved. App lock turns off; set a new PIN in Security.</dd>
-          <dt>Email won't connect</dt><dd>Most providers need an app password, not your normal password, and two-step verification on to create one. Check the address and server names, then try again.</dd>
+          <dt>Email won't connect</dt><dd>Most providers need an app password, not your normal password, and two-step verification on to create one. Check the address and server names, then try again. For Microsoft 365, use <strong>Sign in with Microsoft</strong>; if it says an administrator must approve, ask your IT admin to approve C.A.P. Inbox Assistant for your organisation, and to make sure Authenticated SMTP is on for your mailbox.</dd>
           <dt>Where is my data?</dt><dd>On your computer only, in the folder shown at the top of Settings. Use <strong>Export my data</strong> for a copy.</dd>
         </dl>
         <p>Installation problems are covered in <a href="#setup">Setup</a>. Still stuck? <a href="#feedback">Ask in Help &amp; feedback</a>.</p>
